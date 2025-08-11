@@ -1,0 +1,194 @@
+
+:root {
+    --primary: #00a3cc;
+    --primary-dark: #00a3cc;
+    --secondary: #d01012;
+    --dark: #333;
+    --light: #f8f9fa;
+}
+
+.App {
+  text-align: left;
+  overflow: unset;
+  height: 100vh;
+}
+
+header {
+    padding: 1rem;
+    text-align: center;
+}
+
+#lego-header {
+    background-color: var(--primary);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    padding: 1rem 0;
+}
+
+.container {
+    margin: 0 0;
+    padding: 1rem;
+}
+.tabs {
+    display: flex;
+    margin: 1rem 0;
+    border-bottom: 2px solid var(--primary);
+}
+.tab {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    background-color: #e9e9e9;
+    border: none;
+    outline: none;
+    margin-right: 2px;
+}
+.tab.active {
+    background-color: var(--primary);
+    color: var(--dark);
+    font-weight: bold;
+}
+.tab-content {
+    padding: 1rem;
+    background-color: white;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.tab-content.active {
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: block;
+}
+button, select, input {
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+button {
+    background-color: var(--primary);
+    color: var(--dark);
+    cursor: pointer;
+    font-weight: bold;
+    border: none;
+}
+button:hover {
+    background-color: var(--primary-dark);
+}
+.search-bar {
+    display: flex;
+    margin-bottom: 1rem;
+}
+.search-bar input {
+    flex: 1;
+    margin-right: 0.5rem;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+th, td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+th {
+    background-color: var(--primary);
+    color: var(--dark);
+}
+tr:hover {
+    background-color: #f1f1f1;
+}
+#piece-results .card * {
+    margin: 8px 0px;
+}
+.card, .container_card{
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+.container_card:hover {
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    transform: translateY(-2px) scale(1.02);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card-header {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5rem;
+}
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+}
+.box-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+}
+.box-cell {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 0.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.box-cell:hover {
+    background-color: #e0e0e0;
+}
+.box-cell.occupied {
+    background-color: var(--primary);
+    color: var(--dark);
+    font-weight: bold;
+}
+.error {
+    color: var(--secondary);
+    background-color: #ffe6e6;
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+.loading {
+    text-align: center;
+    margin: 2rem 0;
+}
+.badge {
+    display: inline-block;
+    background-color: var(--primary);
+    color: var(--dark);
+    border-radius: 12px;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.8rem;
+    margin-right: 0.5rem;
+}
+.piece-list {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-top: 0.5rem;
+}
+.box-legend {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+}
+.legend-color {
+    width: 20px;
+    height: 20px;
+    margin-right: 0.5rem;
+    border: 1px solid #ddd;
+}

@@ -1,0 +1,14 @@
+:root {
+    --background-color: 233, 233, 233;
+    --foreground-color: 45, 45, 45;
+    --project-hover-speed: 0.75s;
+    --floating-close-speed: 0.8s;
+}
+
+html, body { background-color: transparent; }
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}

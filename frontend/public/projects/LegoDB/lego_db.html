@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>LEGO Database</title>
+        <link rel="stylesheet" href="../../style.css">
+        <link rel="stylesheet" href="../project.css">
+        <script defer src="../../theme-style.js"></script>
+        <script defer src="../project.js"></script>
+        <style>
+            @media (max-width: 768px) {
+                .full_image {
+                    max-width: 85% !important;
+                    height: 85% !important;
+                }
+            }
+            .image_gallery img {
+                margin: 0rem auto 1rem auto;
+                max-width: 80%;
+            }
+            .image_gallery p {
+                text-align: center;
+            }
+            .section-header {
+                max-width: 60%;
+            }
+            .center_img {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0;
+                margin: 2rem 0rem
+            }
+        </style>
+    </head>
+
+    <body>
+        <header class="page-header">
+            <span id="name" class="link"><a href="../../index.html">Kory Sanchez</a></span>
+            <span><p class="title" style="cursor: unset">LEGO Database</p></span>
+        </header>
+
+
+        <div class="section">
+
+                    <!-- Header -->
+                    <header class="project-header">
+                        <div class="project-type" data-text="Personal Project">Personal Project</div>
+
+                        <div class="project-hero" style="display:block">
+                            <div class="project-logo-container">
+                                <img src="./title.png" rel="preload" alt="LEGO Database Logo" style="width: 80%; margin: 0 auto"/>
+                            </div>
+
+                            <h1 style="font-size: 4rem; text-align: center;">LEGO Database</h1>
+
+                            <p class="hero-project-description">Tool to locate and track LEGO pieces across storage bins.</p>
+                        </div>
+                    </header>
+        </div>
+
+
+
+        <div class="section-secondary">
+                    <!-- Tech Stack -->
+                     <section>
+                        <div class="section-header"><h2>Project</h2><h2>Details</h2></div>
+                        <div>
+                            <p><strong>Duration:</strong> March 2024 - February 2025</p>
+                            <p><strong>Tools:</strong> Python, BeautifulSoup4, Tkinter, SQLite, Notion, Notion API</p>
+                        </div>
+                     </section>
+        </div>
+        <div class="section">
+                    <section>
+                        <div class="section-header"><h2>Overview</h2></div>
+                        <div>
+                            <p>In March 2024, I began sorting my LEGO collection from previously color-sorted bins to a collection sorted entirely be piece. Since then, this project has evolved into a complex database to track locations with QR-code labelled bins, and over 400 compartmented sections.</p>
+                        </div>
+                    </section>
+        </div>
+        <div class="section">
+                    <section class="reversed">
+                        <div>
+                            <p>When I first started, I had envisioned just a few small containers to hold small pieces that would get lost in the larger bins. I was often running into issues where I was trying to find a small, black piece in a huge pile of black LEGO pieces.</p>
+                            <br>
+                            <p>I came home with one of these IRIS 16-Case Photo storage bins with the goal to keep a couple commonly used pieces in it for quick access.</p>
+                            <br>
+                            <p>When I got the bin, however, I realized the potential for a much better system.</p>
+                        
+                        </div>
+                        <div class="section-header">
+                            <h2>Iteration 1</h2>
+                            <img src="./iris_bin.png" style="width: auto; max-width: 100%; height: auto;">
+                        </div>
+                    </section>
+        </div>
+
+
+        <div class="section-secondary">
+                    <section>
+                        <div class="section-header"><h2>Motivation & Context</h2></div>
+                        <div>
+                            <p>These bins provided ideal storage, as pieces are in seperate containers, ideal for frequent moving. They can also be easily reorganized, making future expansion or reorganization much easier.</p>
+                            <br>
+                            <p>One small problem was that each larger container has 16 smaller containers. English doesn't contain clearly differentiated words for larger "Boxes" vs smaller "Containers", so I picked those two words arbitrarily.</p>
+                            <br>
+                            <p>Thus, each Box has 16 Containers</p>
+                        </div>
+                    </section>
+        </div>
+        
+        <div class="section">
+                    <section class="reversed">
+                        <div>
+                            <p>I began to get a few more boxes 2 at a time, but they were continually being filled by categories that I felt were necessary. I started sorting my collection down to finer levels of organization. </p>
+                            <br>
+                            <p>After around 6 boxes I was finding it hard to keep track of where certains containers were located, or what pieces they had. So I started my initial plans for a more organized system.</p>
+                            <br>
+                            <p>The original plan was to print out vinyl labels for each box, with each container having a letter on the back for the box it's in (Box A-Z), and a number (0-f in hexadecimal) for which location in the box it was.</p>
+                        </div>
+                        <div class="section-header" style="max-width: 60%">
+                            <h2>"Array" approach</h2> 
+                            <div class="center_img">
+                                <img src="./boxes.jpeg" style="width: auto; max-width: 100%; height: auto;">
+                            </div>
+                        </div>
+                    </section>
+        </div>
+
+        <div class="section">
+                    <section>
+                        <div>
+                            <p>With this system in place, I would then be able to have a database to store what <em>pieces</em> were stored at each <em>location</em>.</p>
+                            <br>
+                            <p>So I created a Notion database, and parsed some images online for pieces. At the time, I was using Notion for a couple other personal databases and figured it would be easiest to keep everything in one place. As well, the ability to access from my phone was an advantage that I figured would be useful.</p>
+                            <br>
+                            <p>I am very grateful that a man named Tom Alphin already had a large amount of these pieces with clean looking labels and up to date information on all the pieces on his website. I used these images and data to populate my own database. You can find his website <a href="https://brickarchitect.com/labels/" target="_blank" class="link" rel="noopener">here</a>.</p>
+                            
+                            </div>
+                    </section>
+                    <img src="notion.jpg" style="width: 100%; margin: 2rem 0rem !important;">
+        </div>
+
+
+        <div class="section-secondary">
+                    <section class="reversed">
+                        <div>
+                            <p>The Notion database did not end up being what I used. However as I needed to create a large amount of pieces for the database, I ended up learning a lot about connecting to APIs and databases. I would parse data from Tom Alphin's site, process the images, and send them through Notion's API to populate the database.</p>
+                            <br>
+                            <p>Now that I had a database for the pieces, I could use the API the other way around; pulling data of pieces and locations, and writing a custom script. This script would find any set, and find the pieces I needed and where they were located among the bins. By this point I already had 18 boxes with nearly my entire collection sorted by piece.</p>
+                            <br>
+                            <p>Running the script will show what containers I'll need, so I can avoid shuffling around large boxes, and just grab the smaller containers right there.</p>
+                        </div>
+                    </section>
+
+                    <div style="display: flex; align-items: center; justify-content: center; padding: 0;">
+                        <img src="./piece_finder.jpeg" style="width: auto; margin-top: 2rem; max-width: 50%; height: 50%;" class="full_image">
+                    </div>
+        </div>
+
+
+        <div class="section">
+                    <section>
+                        <div class="section-header"><h2>Problems</h2></div>
+                        <div>
+                            <p>I did not continue to use Notion for long. It was slow to load and edit, and a little unintuitive. But the main motivation was that one week, the power went out in my neighborhood. When I tried to look for a piece I could not use the wifi to connect to Notion.</p>
+                            <br>
+                            <p>This was frustrating, and motivated me to create my own database. </p>
+                            <br>
+                            <p>As well, the mapping of piece to location was not working, and undermined one of the core functionalities of this system: that each unique container can fit into any location. Each container was marked with a Box and Position (A0, B4, etc.). This is an "array" based approach, where the array is the one dimensional range of box positions A0 - Zf. The database only named what pieces were located at each position.</p>
+                            <br>
+                            <p>This had some advantages. Namely, the ability to easily put containers back to their position. However, it had far more drawbacks. It was hard to add pieces to the same area. For example, 2x2 bricks take up containes B2 -  B8. If I got more 2x2 bricks, I'd have to expand, but not being able to move containers would mean I'd have to put them in an entirely different location.</p>
+        
+                        </div>
+                    </section>
+        </div>
+
+
+        <div class="section-secondary">
+                    <section class="reversed">
+                        <div>
+                            <p>My new approach would unfortunately make the Notion database obsolete. However I learned a lot from it, so it was not a waste.</p>
+                            <br>
+                            <p>This new database would require a new approach. Instead of mapping what pieces are at each location, we map what container are at each location, and what pieces are in each container. This would allow moving containers quite easily, so long as we keep the pieces in their container.</p>
+                            <br>
+                            <p>This has some negatives, as it requires consulting the database to find the exact location of a container for retrieval and putting back. But the pros far outweight the cons.</p>
+                        </div>
+                        <div class="section-header">
+                            <h2>Heap approach</h2> 
+                        </div>
+                    </section>
+        </div>
+
+        <div class="section">
+                    <section>
+                        <div class="section-header">
+                            <h2>New Database</h2> 
+                        </div>
+                        <div>
+                            <p>Finally, the current program is fast, local, and has more powerful functionality. I can search to locate any individual containers or pieces. I can easily hover to locate and find pieces based on categories, which dynamically change as I move or edit what pieces are located where.</p>
+                            <br>
+                            <p>It also looks much prettier</p>
+                        </div>
+                    </section>
+        </div>
+
+        <div class="section-secondary image_gallery">
+                <p>Filter by pieces:</p>
+                <img src="piece_filter.jpg">
+                <br><br><br>
+                <p>Filter to locate individual container:</p>
+                <img src="container_filter.jpg">
+                <br><br><br>
+                <p>Piece manager for editing metadata on any individual piece:</p>
+                <img src="piece_manager.png">
+                <br><br><br>
+        </div>
+
+
+
+        <div class="section">
+                <div class="section-header">
+                    <img src="set_parts.jpg" style="max-width: 80%; margin: 0 auto">
+                    <h2>Set building</h2>
+                </div>
+                <div>
+                    <p>Ultimately, a large goal of the project was to assist in making it easy to build and rebuild sets. I've added functionality that parses a set's part information, set instructions, and downloads it all for local referencing.</p>
+                    <br>
+                    <p>With just a click, I can open an interactive menu to see what pieces are needed, or use the main page to see a subset of the boxes and containers required to build a set.</p>
+                </div>
+        </div>
+
+        <div class="section-secondary">
+                <div class="section-header">
+                    <h2>Phone usage</h2>
+                </div>
+                <div>
+                    <p>One missing function from the Notion version was the ability to access information from my phone. As well, with the new container approach, it would be harder to easily find locations of pieces.</p>
+                    <br>
+                    <p>I solved this issue by saving a second copy of a read-only database to my pi, and leveraged ChatGPT to write me a simple web page to read the database and find me relevant information.</p>
+                    <br>
+                    <p>I'm able to use <a href="https://korysanchez.me/lego" target="_blank" class="link" rel="noopener">korysanchez.me/lego</a> on my phone to quickly search for any pieces, or locations I need to.</p>
+                </div>
+        </div>
+
+
+        <div class="section-secondary"></div>
+
+
+
+
+
+
+
+
+
+
+        </div>
+    </body>
+</html>

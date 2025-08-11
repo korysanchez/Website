@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Rebuild the production image with latest code
+echo "Rebuilding production image..."
+docker-compose build frontend-prod
+
+# Restart production container with new image
+echo "Restarting production container..."
+docker-compose up -d frontend-prod
+
+echo "Done! Latest code is now live in production."
+echo "  Prod: http://$(hostname -I | awk '{print $1}'):80"
+echo "   Dev: http://$(hostname -I | awk '{print $1}'):3000"
