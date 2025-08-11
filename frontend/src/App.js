@@ -9,7 +9,7 @@ import Lego from './lego/Lego';      // import your Lego component
 //Projects
 import SafeSpace from "./portfolio/projects/SafeSpace";
 import LegoDB from "./portfolio/projects/LegoDB";
-import NotWritten from './portfolio/projects/NotWritten';
+import NotWritten from './portfolio/projects/notwritten';
 
 
 

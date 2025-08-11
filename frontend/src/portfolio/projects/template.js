@@ -1,7 +1,7 @@
 // Template.jsx
 
 import React, { useState, useEffect, useRef } from "react";
-import "./ProjectStyles.css";
+import "./projectstyles.css";
 
 export default function Template({
   title,

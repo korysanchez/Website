@@ -1,6 +1,6 @@
 import React from "react";
-import Template from "./Template";
-import "./ProjectStyles.css";
+import Template from "./template";
+import "./projectstyles.css";
 
 const folderPath = "/projects/LegoDB/";
 const imagePaths = {
