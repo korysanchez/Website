@@ -128,7 +128,7 @@ export default function Template({
 
           <div className="project-hero" style={{ display: "block" }}>
             <div className="project-logo-container">
-              <img src={heroImage} className="modal-trigger" alt={`${title} Logo`} style={{ width: "80%", margin: "0 auto", display: heroImage ? "block" : "none", cursor: heroImage ? "pointer" : "default" }} onClick={() => openModal(heroImage)}/>
+              <img src={heroImage} className="modal-trigger" alt={`${title} Logo`} style={{ width: "80%", margin: "0 auto", display: heroImage ? "block" : "none", cursor: heroImage ? "zoom-in" : "default" }} onClick={() => openModal(heroImage)}/>
             </div>
 
             <h1 style={{ fontSize: "4rem", textAlign: "center" }}>{title}</h1>
@@ -166,23 +166,31 @@ export default function Template({
                 </div>
                 ) : (
                 <>
-                    <div className={reversed && images ? "section-header" : ""}>
-                    {header && <h2>{header}</h2>}
-                    {!reversed && images && (
-                        <div className="center_img">
-                        {images.map((src, idx) => (
-                            <img
-                            key={idx}
-                            src={src}
-                            className="modal-trigger"
-                            alt=""
-                            style={{ width: "auto", maxWidth: "100%", height: "auto", margin: "1rem 0" }}
-                            onClick={() => openModal(src)}
-                            />
-                        ))}
-                        </div>
-                    )}
-                    </div>
+                
+                    {(header || (!reversed && images && images.length > 0)) && (
+                      <div className={reversed && images ? "section-header" : ""}>
+                          {header && <h2>{header}</h2>}
+                          {!reversed && images && images.length > 0 && (
+                              <div className="center_img">
+                                  {images.map((src, idx) => (
+                                      <img
+                                          key={idx}
+                                          src={src}
+                                          className="modal-trigger"
+                                          alt=""
+                                          style={{
+                                              width: "auto",
+                                              maxWidth: "100%",
+                                              height: "auto",
+                                              margin: "1rem 0"
+                                          }}
+                                          onClick={() => openModal(src)}
+                                      />
+                                  ))}
+                              </div>
+                          )}
+                      </div>
+                  )}
                     <div>
                     {paragraphs && paragraphs.map((p, idx) => <p key={idx} dangerouslySetInnerHTML={{ __html: p }} />)}
                     {reversed && images && (

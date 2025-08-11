@@ -169,6 +169,7 @@ body {
     width: 100%;
 }
 
+
 .project:nth-child(even) {
     transform: translateX(10vw);
 }
@@ -391,11 +392,12 @@ img {
         flex-wrap: wrap;
         width: fit-content;
         height: unset;
-        padding-bottom: 2rem;
+        padding-bottom: 4rem;
     }
 
     .floating-content {
-        overflow-y: scroll;
+        overflow-y: visible;
+        
     }
 
     .headshot {
@@ -418,6 +420,7 @@ img {
         align-content: center;
         justify-content: center;
         display: flex;
+        position: unset !important;
         width: 100%;
         align-items: center;
     }
@@ -429,7 +432,6 @@ img {
         width: unset;
         padding-right: unset;
         grid-template-rows: unset;
-        margin-top: 5rem;
     }
 
     .project:nth-child(even) {
@@ -473,6 +475,8 @@ img {
 
     .project.hovered img {
         filter: blur(2px);
+        height: 105%;
+        width: 105%;
     }
 
     .project.hovered:nth-child(even) {

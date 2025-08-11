@@ -286,6 +286,9 @@ header {
 .modal-trigger {
   cursor: zoom-in;
 }
+.image-modal-overlay, .image-modal-content {
+  cursor: zoom-out;
+}
 
 
 .section, .section-secondary {
@@ -320,13 +323,17 @@ section div {
     padding: 0% 5%;
 }
 
+.reversed {
+    flex-direction: row-reverse;
+}
+
 
 @media (max-width: 768px) {
     .section-secondary section, .section section {
         flex-direction: column;
     }
     .section-secondary .reversed, .section .reversed {
-        flex-direction: column-reverse;
+        flex-direction: column;
     }
 }
 @media (max-width: 768px) {
