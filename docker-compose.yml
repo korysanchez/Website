@@ -1,24 +1,28 @@
 version: '3.9'
 
 services:
+  # Backend flask service, running on 5000 between appnet
   backend:
     build: ./backend
     container_name: backend
+    restart: unless-stopped
     expose:
       - "5000"
     networks:
       - appnet
 
-  # Development environment with hot reload
+  # Development environment running on local network with hot reload
   frontend-dev:
     build:
       context: ./frontend
       dockerfile: Dockerfile.dev
     container_name: frontend-dev
+    restart: unless-stopped 
     environment:
       - HOST=0.0.0.0
       - PORT=3000
       - CHOKIDAR_USEPOLLING=true  # Better file watching in Docker
+    # Mount source code for live editing
     volumes:
       - ./frontend/src:/app/src
       - ./frontend/public:/app/public
@@ -34,15 +38,18 @@ services:
       context: ./frontend
       dockerfile: Dockerfile.prod
     container_name: frontend-prod
+    restart: unless-stopped 
     depends_on:
       - backend
     volumes:
       - ./frontend/nginx.conf:/etc/nginx/conf.d/default.conf
+    # Expose port 80 for web traffic, connected to cloudflare tunnel
     ports:
       - "80:80"
     networks:
       - appnet
 
+# Connect network for inter-container communication without exposing ports externally
 networks:
   appnet:
     driver: bridge
