@@ -312,16 +312,19 @@ a {
 }
 
 .tag-container > .tag {
-    transform: scaleY(0) scaleX(0);
+    transform: scaleY(1) scaleX(1);
     transition: transform 0.4s ease, opacity 0.4s ease;
 }
 
-.project.hovered .tag-container > .tag {
-    transform: scaleY(1) scaleX(1);
+.tag {
+  transform: scale(1);
+  transition: transform 0.4s ease;
 }
-.project:not(.hovered) .tag-container > .tag {
-    transform: scaleY(0.0) scaleX(0.0);
+
+.tag.unhovered {
+  transform: scale(0);
 }
+
 
 .tag {
     display: inline-block;

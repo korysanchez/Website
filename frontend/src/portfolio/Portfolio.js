@@ -119,17 +119,14 @@ const projects = [
 
 // Project Card Component
 function ProjectCard({ project, isDarkMode }) {
-  const [isHovered, setIsHovered] = useState(false);
-  const [isActive, setIsActive] = useState(false);
   const projectRef = useRef(null);
-  const timeoutRef = useRef(null);
   const isHoveredRef = useRef(false);
   const [activeCardId, setActiveCardId] = React.useState(null);
-  const [isTouch, setIsTouch] = React.useState(false);
+  const [initialHiddenTags, setInitialHiddenTags] = useState(false); // controls global visibility
 
-  React.useEffect(() => {
-    setIsTouch(isTouchDevice());
-  }, []);
+
+  const [fadedTags, setFadedTags] = useState([]);
+  const timeoutRefs = useRef([]);
 
   const isMobile = () => window.innerWidth < 700;
 
@@ -155,13 +152,6 @@ function ProjectCard({ project, isDarkMode }) {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsHovered(true);
-          setIsActive(true);
-        } else {
-          setIsHovered(false);
-          setIsActive(false);
-        }
       },
       {
         root: null,
@@ -181,24 +171,39 @@ function ProjectCard({ project, isDarkMode }) {
     };
   }, []);
 
+
   const handleMouseEnter = () => {
+    setInitialHiddenTags(true);
     if (!isMobile()) {
-      setIsHovered(true);
       isHoveredRef.current = true;
-      setIsActive(true);
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
+      timeoutRefs.current.forEach(clearTimeout);
+      timeoutRefs.current = [];
+      setFadedTags([]);
     }
   };
 
   const handleMouseLeave = () => {
     if (!isMobile()) {
-      setIsHovered(false);
       isHoveredRef.current = false;
-      timeoutRef.current = setTimeout(() => {
-        if (!isHoveredRef.current) {
-          setIsActive(false);
-        }
-      }, 300);
+
+      timeoutRefs.current.forEach(clearTimeout);
+      timeoutRefs.current = [];
+
+      const indices = [...Array(project.tags.length).keys()];
+      for (let i = indices.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [indices[i], indices[j]] = [indices[j], indices[i]];
+      }
+      setFadedTags([]);
+
+      indices.forEach((idx, order) => {
+        const delay = Math.random() * 100 + order * 200; // random + stagger
+        const t = setTimeout(() => {
+          setFadedTags(prev => [...prev, idx]);
+        }, delay);
+        timeoutRefs.current.push(t);
+      });
     }
   };
 
@@ -216,7 +221,7 @@ function ProjectCard({ project, isDarkMode }) {
   return (
     <Link
       ref={projectRef}
-      className={`project ${isActive ? 'hovered' : ''}`}
+      className={`project`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={() => handleCardClick(project.id, project.link)}
@@ -234,7 +239,7 @@ function ProjectCard({ project, isDarkMode }) {
             {project.tags.map((tag, index) => (
               <p
                 key={index}
-                className="tag"
+                className={`tag ${(!initialHiddenTags || fadedTags.includes(index)) ? "unhovered" : ""}`}
                 style={tag.color ? { backgroundColor: tag.color } : {}}
               >
                 {tag.text}
@@ -250,11 +255,6 @@ function ProjectCard({ project, isDarkMode }) {
 function Portfolio({ isDarkMode }) {
 
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [projectStates, setProjectStates] = useState({});
-
-  // Theme handling
-  
-
   // Mobile detection
   const isMobile = () => window.innerWidth < 700;
 
