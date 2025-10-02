@@ -26,7 +26,7 @@ const projects = [
     title: "Safe Space",
     description: "AI-powered video recognition that detects workplace safety violations and logs to a database with interactive data visualizations",
     image: "projects/SafeSpace/main.png",
-    href: "/SafeSpace",
+    href: "/NotWritten",
     tags: [
       { text: "AI", color: "rgba(191, 188, 88, 0.5)" },
       { text: "Computer Vision" },
