@@ -1,6 +1,11 @@
+import os
 import sqlite3
 
-def connect_db(db_path='lego_db.db'):
+DB_DIR = "data"
+DB_FILE = os.path.join(DB_DIR, "lego_db.db")
+os.makedirs(DB_DIR, exist_ok=True)
+
+def connect_db(db_path=DB_FILE):
     return sqlite3.connect(db_path)
 
 def normalize_container_id(cid):

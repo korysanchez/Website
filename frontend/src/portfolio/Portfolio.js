@@ -26,7 +26,7 @@ const projects = [
     title: "Safe Space",
     description: "AI-powered video recognition that detects workplace safety violations and logs to a database with interactive data visualizations",
     image: "projects/SafeSpace/main.png",
-    href: "/NotWritten",
+    href: "/SafeSpace",
     tags: [
       { text: "AI", color: "rgba(191, 188, 88, 0.5)" },
       { text: "Computer Vision" },
@@ -217,7 +217,6 @@ function ProjectCard({ project, isDarkMode }) {
   };
 
   
-  console.log(project.href);
   return (
     <Link
       ref={projectRef}

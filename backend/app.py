@@ -1,6 +1,17 @@
 from flask import Flask, Blueprint, request, jsonify, send_file, redirect, render_template
 from flask_cors import CORS
+from dotenv import load_dotenv
+from datetime import datetime
 import os, sys
+import logging
+import sys
+
+# Forward print/log output to Gunicorn logs
+logging.basicConfig(
+    stream=sys.stdout,
+    level=logging.INFO,
+    format='[%(asctime)s] [%(levelname)s] %(message)s'
+)
 
 app = Flask(__name__)
 CORS(app, origins=["http://localhost:3000", "http://127.0.0.1:3000", "https://korysanchez.me"])
@@ -12,7 +23,53 @@ def home():
         return redirect('https://korysanchez.me' + request.full_path, code=301)
     
     # Return the main page if it's the non-www version
-    return "Welcome to korysanchez.me"
+    return "Welcome too korysanchez.me"
+
+import finance
+@app.route('/api/finance', methods=['POST'])
+def receive_data():
+    load_dotenv()
+    EXPECTED_PW = os.environ.get("FINANCE_API_PW")
+
+    # Check custom header
+    if request.headers.get("pw") != EXPECTED_PW:
+        return jsonify({"error": "Unauthorized"}), 401
+
+    # Check JSON body
+    if not request.is_json:
+        return jsonify({"error": "Request must be JSON"}), 400
+
+    data = request.get_json()
+    required_fields = ["User", "Category", "Amount", "Date", "Title"]
+
+
+    
+    missing_fields = [field for field in required_fields if field not in data]
+    if missing_fields:
+        return jsonify({"error": "Missing required fields", "missing": missing_fields}), 400
+
+    # Convert the incoming date string to a datetime object
+    try:
+        # Example format: "Nov 6, 2025 at 6:28 PM"
+        date_obj = datetime.strptime(data["Date"], "%b %d, %Y at %I:%M %p")
+    except ValueError as e:
+        return jsonify({"error": f"Invalid date format: {e}"}), 400
+
+    # Insert into database
+    success = finance.insert_transaction(
+        user=data["User"],
+        category=data["Category"],
+        amount=data["Amount"],
+        date_obj=date_obj,
+        title=data["Title"],
+        logger=app.logger
+    )
+
+    if success:
+        app.logger.info(f"Inserted transaction: {data}")
+        return jsonify({"message": "Transaction recorded successfully"}), 200
+    else:
+        return jsonify({"error": "Failed to insert transaction"}), 500
 
 
 @app.route('/download-resume', methods=['GET'])
@@ -154,4 +211,4 @@ def get_categories():
 app.register_blueprint(lego_bp, url_prefix='/lego/api')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000, debug=True)
