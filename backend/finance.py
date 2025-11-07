@@ -63,5 +63,32 @@ def insert_transaction(user, category, amount, date_obj, title, logger=None):
     finally:
         conn.close()
 
+def delete_transaction_by_id(transaction_id, logger=None):
+    """
+    Delete a transaction from the database by its ID.
+
+    :param transaction_id: int
+    :param logger: optional logging object
+    :return: True if deleted, False if not found or error
+    """
+    conn = connect_db()
+    try:
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM transactions WHERE id = ?", (transaction_id,))
+        conn.commit()
+        if cursor.rowcount == 0:
+            if logger:
+                logger.warning(f"No transaction found with id {transaction_id}")
+            return False
+        if logger:
+            logger.info(f"Deleted transaction with id {transaction_id}")
+        return True
+    except sqlite3.Error as e:
+        if logger:
+            logger.error(f"Error deleting transaction {transaction_id}: {e}")
+        return False
+    finally:
+        conn.close()
+
 # Initialize the table when this module is imported
 create_table()
