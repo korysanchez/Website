@@ -1,13 +1,43 @@
 #!/bin/bash
 
-# Rebuild the production image with latest code
-echo "Rebuilding production image..."
+# Default: do not rebuild backend
+REBUILD_BACKEND=false
+
+# Parse command line arguments
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -b|--backend)
+            REBUILD_BACKEND=true
+            shift
+            ;;
+        *)
+            echo "Unknown option: $1"
+            shift
+            ;;
+    esac
+done
+
+# Rebuild frontend production image
+echo "Rebuilding frontend production image..."
 docker-compose build frontend-prod
 
-# Restart production container with new image
-echo "Restarting production container..."
+# Rebuild backend if requested
+if [ "$REBUILD_BACKEND" = true ]; then
+    echo "Rebuilding backend image..."
+    docker-compose build backend
+else
+    echo "Note: must specify -b or --backend if you want to rebuild the backend."
+fi
+
+# Restart containers
+echo "Restarting frontend production container..."
 docker-compose up -d frontend-prod
 
-echo "Done! Latest code is now live in production."
+if [ "$REBUILD_BACKEND" = true ]; then
+    echo "Restarting backend container..."
+    docker-compose up -d backend
+fi
+
+echo "Done! Latest code is now live."
 echo "  Prod: https://korysanchez.me"
 echo "   Dev: http://$(hostname -I | awk '{print $1}'):3000"
