@@ -23,14 +23,40 @@ def home():
         return redirect('https://korysanchez.me' + request.full_path, code=301)
     
     # Return the main page if it's the non-www version
-    return "Welcome too korysanchez.me"
+    return "Welcome to korysanchez.me"
 
-import finance
-@app.route('/api/finance', methods=['POST'])
+
+
+@app.route('/download-resume', methods=['GET'])
+def download_resume():
+    resume_path = os.path.join(os.path.dirname(__file__), "resources", "Kory Sanchez Resume.pdf")
+    
+    if not os.path.exists(resume_path):
+        print('File not found')
+        return jsonify({"error": "Resume file not found"}), 404
+
+    try:
+        return send_file(resume_path, as_attachment=True)
+    except Exception as e:
+        print(f"Error: {e}")
+        return jsonify({"error": str(e)}), 500
+
+
+
+# ---------------------------------------------- finance -------------------------------------------------
+try:
+    import finance
+except ImportError:
+    finance = None
+    print("Error: finance module not found. Ensure it is installed and accessible.")
+
+@app.route('/finance/api', methods=['POST'])
 def receive_data():
     load_dotenv()
     EXPECTED_PW = os.environ.get("FINANCE_API_PW")
 
+    logger = app.logger
+    logger.info(f"Received request: {request.method} {request.path}")
     # Check custom header
     if request.headers.get("pw") != EXPECTED_PW:
         return jsonify({"error": "Unauthorized"}), 401
@@ -62,7 +88,9 @@ def receive_data():
         amount=data["Amount"],
         date_obj=date_obj,
         title=data["Title"],
-        logger=app.logger
+        description=data.get("Description", ""),
+        rate=data.get("Rate", None),
+        logger=logger
     )
 
     if success:
@@ -72,19 +100,127 @@ def receive_data():
         return jsonify({"error": "Failed to insert transaction"}), 500
 
 
-@app.route('/download-resume', methods=['GET'])
-def download_resume():
-    resume_path = os.path.join(os.path.dirname(__file__), "resources", "Kory Sanchez Resume.pdf")
-    
-    if not os.path.exists(resume_path):
-        print('File not found')
-        return jsonify({"error": "Resume file not found"}), 404
 
+
+@app.route('/finance/api/transactions', methods=['GET'])
+def get_transactions():
+    user = request.args.get('user')
+    if not user:
+        return jsonify({"error": "Missing 'user' query parameter"}), 400
+
+    transactions = finance.get_transactions_by_user(user)
+    return jsonify(transactions)
+    
+
+
+
+@app.route('/finance/login', methods=['POST'])
+def finance_login():
+    """Handle user login and return their transactions"""
+    load_dotenv()
+    EXPECTED_PW = os.environ.get("FINANCE_API_PW")
+    
+    logger = app.logger
+    logger.info(f"Received login request: {request.method} {request.path}")
+    
+    # Check JSON body
+    if not request.is_json:
+        return jsonify({"error": "Request must be JSON"}), 400
+    
+    data = request.get_json()
+    username = data.get("username")
+    password = data.get("password")
+    
+    # Validate credentials
+    if not username or not password:
+        return jsonify({"error": "Username and password required"}), 400
+    
+    # Check password against environment variable
+    if password != EXPECTED_PW:
+        return jsonify({"error": "Invalid credentials"}), 401
+    
+    # Fetch user's transactions from database
     try:
-        return send_file(resume_path, as_attachment=True)
+        rows = finance.get_transactions_by_user(username)  # Ensure the function is working
+        logger.info(rows)
+        # Convert to list of dictionaries
+        transactions = []
+        for row in rows:
+            transactions.append({
+                "category": row[0],
+                "amount": row[1],
+                "date": row[2],
+                "title": row[3],
+                "description": row[4],
+                "rate": row[5],
+                "id": row[6]
+            })
+        
+        
+        logger.info(f"Login successful for user: {username}, found {len(transactions)} transactions")
+        return jsonify({
+            "success": True,
+            "username": username,
+            "transactions": transactions
+        }), 200
+        
     except Exception as e:
-        print(f"Error: {e}")
-        return jsonify({"error": str(e)}), 500
+        logger.error(f"Database error: {e}")
+        return jsonify({"error": "Database error occurred"}), 500
+    except Exception as e:
+        logger.error(f"Unexpected error: {e}")
+        return jsonify({"error": "An error occurred"}), 500
+
+
+
+
+@app.route("/finance/edit", methods=["POST"])
+def edit_transaction():
+    data = request.json
+    required_fields = ["title", "amount", "category", "date"]  # only these are editable
+
+    missing_fields = [field for field in required_fields if field not in data]
+    if missing_fields:
+        return jsonify({"error": f"Missing required fields: {', '.join(missing_fields)}"}), 400
+
+    if "id" not in data:
+        return jsonify({"error": "Transaction ID is required"}), 400
+
+    # Parse date safely
+    try:
+        date_obj = datetime.strptime(data["date"], "%Y-%m-%d %H:%M")
+    except ValueError:
+        return jsonify({"error": "Date format must be YYYY-MM-DD HH:MM"}), 400
+
+    result = finance.edit_transaction_by_id(
+        transaction_id=data["id"],
+        category=data["category"],
+        amount=data["amount"],
+        date_obj=date_obj,
+        title=data["title"],
+        description=data.get("description"),
+        rate=data.get("rate"),
+        logger=app.logger
+    )
+
+    if result is True:
+        return jsonify({"success": True, "message": "Transaction updated"}), 200
+    else:
+        return jsonify({"error": f"Transaction with id {data['id']} not found or update failed"}), 404
+
+@app.route("/finance/delete", methods=["POST"])
+def delete_transaction():
+    data = request.json
+    if "id" not in data:
+        return jsonify({"error": "Transaction ID is required"}), 400
+
+    transaction_id = data["id"]
+    success = finance.delete_transaction_by_id(transaction_id, logger=app.logger)
+
+    if not success:
+        return jsonify({"error": f"Transaction {transaction_id} not found or could not be deleted"}), 404
+
+    return jsonify({"success": True, "message": f"Transaction {transaction_id} deleted"}), 200
 
 
 

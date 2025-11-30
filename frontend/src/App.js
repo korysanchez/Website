@@ -5,6 +5,7 @@ import './App.css';
 import Portfolio from './portfolio/Portfolio';  // import your Portfolio component
 import Lego from './lego/Lego';      // import your Lego component
 
+import Finance from './finance/Finance';
 
 //Projects
 import SafeSpace from "./portfolio/projects/SafeSpace";
@@ -61,8 +62,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Portfolio isDarkMode={isDarkMode} />} />
           <Route path="/lego" element={<Lego />} />
-          {/* Project routes */}
 
+          <Route path="/finance" element={<Finance isDarkMode={isDarkMode} />} />
+
+          {/* Project routes */}
           <Route path="/SafeSpace"    element={<SafeSpace   />}  />
           <Route path="/LegoDB"       element={<LegoDB      />}  />
           <Route path="/NotWritten"   element={<NotWritten  />}  />
