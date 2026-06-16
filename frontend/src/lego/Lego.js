@@ -1,95 +1,238 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import './Lego.css';
 
-function buildImagePath(category, name) {
-    if (!category || !name) {
-        return '/part_images/placeholder.png';
-    }
+const POSITIONS = '0123456789ABCDEF'.split('');
 
-    const cleanSegment = (value) => String(value)
+const SEARCH_TYPES = [
+    { value: 'name', label: 'Name' },
+    { value: 'part_number', label: 'Part #' },
+    { value: 'category', label: 'Category' },
+];
+
+function formatPieceCount(count) {
+    return count === 1 ? '1 piece' : `${count} pieces`;
+}
+
+function cleanImageSegment(value) {
+    return String(value || '')
+        .trim()
         .replace(/\u00c2\u00b0/g, 'deg')
         .replace(/\u00b0/g, 'deg')
         .replace(/\u00e2\u0085\u0093/g, '1_3')
         .replace(/\u00e2\u0085\u0094/g, '2_3')
         .replace(/\u2153/g, '1_3')
         .replace(/\u2154/g, '2_3')
+        .replace(/[\\:*?"<>|]/g, '')
         .replace(/\s+/g, '_');
+}
 
-    const safeCategory = String(category).split('/').map(cleanSegment).join('/');
-    const safeName = cleanSegment(name);
+function buildImagePath(category, name) {
+    if (!category || !name) {
+        return '/part_images/placeholder.png';
+    }
 
+    const safeCategory = String(category).split('/').map(cleanImageSegment).join('/');
+    const safeName = cleanImageSegment(name);
     return `/part_images/${safeCategory}/${safeName}.png`;
 }
 
-const ErrorMessage = ({ message }) => {
+async function getJson(url) {
+    const response = await fetch(url);
+    if (!response.ok) {
+        throw new Error(response.statusText || 'Request failed');
+    }
+    return response.json();
+}
+
+function normalizeBoxContents(items) {
+    const slots = new Map(POSITIONS.map(position => [
+        position,
+        { position, containerId: '', pieces: [] },
+    ]));
+
+    items.forEach(item => {
+        const position = String(item.position || '').toUpperCase();
+        if (!slots.has(position)) {
+            return;
+        }
+
+        const slot = slots.get(position);
+        if (item.container_id) {
+            slot.containerId = item.container_id;
+        }
+
+        if (item.part_number) {
+            slot.pieces.push({
+                part_number: item.part_number,
+                name: item.name,
+                category: item.category,
+            });
+        }
+    });
+
+    return POSITIONS.map(position => slots.get(position));
+}
+
+function ErrorMessage({ message }) {
     if (!message) {
         return null;
     }
 
-    return <div className="lego-error">{message}</div>;
-};
+    return <div className="lego-alert" role="alert">{message}</div>;
+}
 
-const PieceImage = ({ piece, className = '' }) => (
-    <img
-        className={`piece-image ${className}`}
-        src={buildImagePath(piece.category, piece.name)}
-        alt={piece.name || piece.part_number || 'Unknown piece'}
-        loading="lazy"
-        onError={(event) => {
-            event.currentTarget.style.visibility = 'hidden';
-        }}
-    />
-);
+function LoadingBlock({ label }) {
+    return (
+        <div className="loading-block" role="status">
+            <span className="loader-dot" />
+            <span>{label}</span>
+        </div>
+    );
+}
 
-const BoxesTab = ({ setActiveTab, setSearchContainerId }) => {
+function EmptyBlock({ title, detail }) {
+    return (
+        <div className="empty-block">
+            <strong>{title}</strong>
+            {detail && <span>{detail}</span>}
+        </div>
+    );
+}
+
+function Stat({ label, value }) {
+    return (
+        <div className="lego-stat">
+            <span>{label}</span>
+            <strong>{value}</strong>
+        </div>
+    );
+}
+
+function PieceImage({ piece, className = '' }) {
+    return (
+        <span className={`piece-image-wrap ${className}`}>
+            <img
+                src={buildImagePath(piece.category, piece.name)}
+                alt={piece.name || piece.part_number || 'LEGO piece'}
+                loading="lazy"
+                onError={(event) => {
+                    event.currentTarget.style.display = 'none';
+                }}
+            />
+        </span>
+    );
+}
+
+function SlotCard({ slot, onOpenContainer }) {
+    const hasContainer = Boolean(slot.containerId);
+    const previewPieces = slot.pieces.slice(0, 4);
+    const extraCount = slot.pieces.length - previewPieces.length;
+
+    return (
+        <button
+            type="button"
+            className={`slot-card ${hasContainer ? 'filled' : 'empty'}`}
+            onClick={() => onOpenContainer(slot.containerId)}
+            disabled={!hasContainer}
+        >
+            <span className="slot-header">
+                <strong>Slot {slot.position}</strong>
+                <span>{slot.containerId || 'Empty'}</span>
+            </span>
+
+            <span className="slot-meta">
+                {hasContainer ? formatPieceCount(slot.pieces.length) : 'No container'}
+            </span>
+
+            <span className="slot-preview">
+                {previewPieces.length > 0 ? (
+                    <>
+                        {previewPieces.map((piece, index) => (
+                            <PieceImage
+                                key={`${slot.position}-${piece.part_number}-${index}`}
+                                piece={piece}
+                            />
+                        ))}
+                        {extraCount > 0 && <span className="extra-count">+{extraCount}</span>}
+                    </>
+                ) : (
+                    <span className="quiet-text">
+                        {hasContainer ? 'No pieces listed' : 'Open slot'}
+                    </span>
+                )}
+            </span>
+        </button>
+    );
+}
+
+function BoxesTab({ setActiveTab, setSearchContainerId }) {
     const [boxes, setBoxes] = useState([]);
     const [selectedBox, setSelectedBox] = useState('');
+    const [loadedBox, setLoadedBox] = useState('');
     const [boxContents, setBoxContents] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loadingBoxes, setLoadingBoxes] = useState(true);
+    const [loadingContents, setLoadingContents] = useState(false);
     const [error, setError] = useState('');
 
-    useEffect(() => {
-        fetch('/lego/api/boxes')
-            .then(response => response.json())
-            .then(data => setBoxes(Array.isArray(data) ? data.map(String) : []))
-            .catch(() => setError('Failed to load boxes. Please try again.'));
-    }, []);
-
-    const loadBoxContents = (boxId) => {
-        if (!boxId) {
-            setError('Please select a box.');
+    const loadBoxContents = useCallback((boxId) => {
+        const nextBox = String(boxId || '').trim();
+        if (!nextBox) {
+            setError('Select a box first.');
             return;
         }
 
-        setSelectedBox(boxId);
-        setLoading(true);
+        setSelectedBox(nextBox);
+        setLoadingContents(true);
         setError('');
 
-        fetch(`/lego/api/box/${encodeURIComponent(boxId)}`)
-            .then(response => response.json())
+        getJson(`/lego/api/box/${encodeURIComponent(nextBox)}`)
             .then(data => {
                 setBoxContents(Array.isArray(data) ? data : []);
-                setLoading(false);
+                setLoadedBox(nextBox);
             })
             .catch(() => {
-                setError('Failed to load box contents. Please try again.');
-                setLoading(false);
+                setBoxContents([]);
+                setLoadedBox('');
+                setError('Box contents could not be loaded.');
+            })
+            .finally(() => setLoadingContents(false));
+    }, []);
+
+    useEffect(() => {
+        let cancelled = false;
+
+        setLoadingBoxes(true);
+        getJson('/lego/api/boxes')
+            .then(data => {
+                if (cancelled) {
+                    return;
+                }
+
+                const nextBoxes = Array.isArray(data) ? data.map(String) : [];
+                setBoxes(nextBoxes);
+                setLoadingBoxes(false);
+
+                if (nextBoxes.length > 0) {
+                    loadBoxContents(nextBoxes[0]);
+                }
+            })
+            .catch(() => {
+                if (!cancelled) {
+                    setBoxes([]);
+                    setLoadingBoxes(false);
+                    setError('Boxes could not be loaded.');
+                }
             });
-    };
 
-    const handleNextBox = () => {
-        const currentIndex = boxes.indexOf(selectedBox);
-        if (currentIndex < boxes.length - 1) {
-            loadBoxContents(boxes[currentIndex + 1]);
-        }
-    };
+        return () => {
+            cancelled = true;
+        };
+    }, [loadBoxContents]);
 
-    const handlePrevBox = () => {
-        const currentIndex = boxes.indexOf(selectedBox);
-        if (currentIndex > 0) {
-            loadBoxContents(boxes[currentIndex - 1]);
-        }
-    };
+    const slots = useMemo(() => normalizeBoxContents(boxContents), [boxContents]);
+    const selectedIndex = boxes.indexOf(selectedBox);
+    const filledSlots = slots.filter(slot => slot.containerId).length;
+    const pieceTotal = slots.reduce((total, slot) => total + slot.pieces.length, 0);
 
     const openContainer = (containerId) => {
         if (!containerId) {
@@ -100,122 +243,121 @@ const BoxesTab = ({ setActiveTab, setSearchContainerId }) => {
         setActiveTab('containers');
     };
 
-    const renderPosition = (position) => {
-        const pieces = boxContents.filter(item => String(item.position || '').toUpperCase() === position);
-        const containerId = pieces[0]?.container_id || '';
-        const realPieces = pieces.filter(piece => piece.part_number);
-        const previewPieces = realPieces.slice(0, 4);
-
-        return (
-            <button
-                type="button"
-                key={position}
-                className={`position-card ${containerId ? '' : 'empty'}`}
-                onClick={() => openContainer(containerId)}
-                disabled={!containerId}
-            >
-                <div className="position-card-title">
-                    <strong>{position}</strong>
-                    <span>{containerId || 'Empty'}</span>
-                </div>
-
-                {containerId ? (
-                    <>
-                        <div className="piece-count">
-                            {realPieces.length === 1 ? '1 piece' : `${realPieces.length} pieces`}
-                        </div>
-                        <div className="piece-preview">
-                            {previewPieces.map((piece, index) => (
-                                <PieceImage key={`${piece.part_number}-${index}`} piece={piece} />
-                            ))}
-                            {realPieces.length > previewPieces.length && (
-                                <span className="more-count">+{realPieces.length - previewPieces.length}</span>
-                            )}
-                            {realPieces.length === 0 && <span className="muted">No pieces listed</span>}
-                        </div>
-                    </>
-                ) : (
-                    <div className="muted">No container</div>
-                )}
-            </button>
-        );
+    const loadAdjacentBox = (offset) => {
+        const nextBox = boxes[selectedIndex + offset];
+        if (nextBox) {
+            loadBoxContents(nextBox);
+        }
     };
 
-    const positions = '0123456789ABCDEF'.split('');
-
     return (
-        <section className="tab-content">
-            <h2>Box Overview</h2>
+        <section className="lego-section">
+            <div className="section-title-row">
+                <div>
+                    <h2>Boxes</h2>
+                    <p>Box {loadedBox || selectedBox || '--'}</p>
+                </div>
+            </div>
 
-            <div className="search-bar">
-                <button type="button" onClick={handlePrevBox} disabled={boxes.indexOf(selectedBox) <= 0}>
+            <div className="toolbar">
+                <button
+                    type="button"
+                    className="square-button"
+                    onClick={() => loadAdjacentBox(-1)}
+                    disabled={selectedIndex <= 0 || loadingContents}
+                    aria-label="Previous box"
+                >
                     &lt;
                 </button>
-                <select value={selectedBox} onChange={(event) => setSelectedBox(event.target.value)}>
-                    <option value="">Select a box...</option>
+
+                <select
+                    value={selectedBox}
+                    onChange={(event) => loadBoxContents(event.target.value)}
+                    disabled={loadingBoxes}
+                    aria-label="Select box"
+                >
+                    <option value="">Select a box</option>
                     {boxes.map(box => (
                         <option key={box} value={box}>Box {box}</option>
                     ))}
                 </select>
-                <button type="button" onClick={() => loadBoxContents(selectedBox)}>
-                    Load Box
-                </button>
+
                 <button
                     type="button"
-                    onClick={handleNextBox}
-                    disabled={boxes.indexOf(selectedBox) === -1 || boxes.indexOf(selectedBox) >= boxes.length - 1}
+                    className="square-button"
+                    onClick={() => loadAdjacentBox(1)}
+                    disabled={selectedIndex === -1 || selectedIndex >= boxes.length - 1 || loadingContents}
+                    aria-label="Next box"
                 >
                     &gt;
                 </button>
             </div>
 
             <ErrorMessage message={error} />
-            {loading && <p className="muted">Loading...</p>}
 
-            {boxContents.length > 0 && (
+            {loadingBoxes || loadingContents ? (
+                <LoadingBlock label={loadingBoxes ? 'Loading boxes' : 'Loading box'} />
+            ) : loadedBox ? (
                 <>
-                    <h3>Box {selectedBox} Contents</h3>
-                    <div className="positions-grid">
-                        {positions.map(renderPosition)}
+                    <div className="stats-row">
+                        <Stat label="Filled slots" value={`${filledSlots}/16`} />
+                        <Stat label="Pieces" value={pieceTotal} />
+                        <Stat label="Empty slots" value={16 - filledSlots} />
+                    </div>
+
+                    <div className="slots-grid">
+                        {slots.map(slot => (
+                            <SlotCard
+                                key={slot.position}
+                                slot={slot}
+                                onOpenContainer={openContainer}
+                            />
+                        ))}
                     </div>
                 </>
+            ) : (
+                <EmptyBlock title="No box selected" detail="Available boxes will appear when the backend responds." />
             )}
         </section>
     );
-};
+}
 
-const ContainersTab = ({ initialSearchId = '' }) => {
+function PieceRow({ piece }) {
+    return (
+        <article className="piece-row">
+            <PieceImage piece={piece} className="piece-row-image" />
+            <div className="piece-row-main">
+                <strong>{piece.name || 'Unknown piece'}</strong>
+                <span>Part {piece.part_number}</span>
+                <span>{piece.category || 'Unknown category'}</span>
+            </div>
+        </article>
+    );
+}
+
+function ContainersTab({ initialSearchId = '' }) {
     const [containerId, setContainerId] = useState(initialSearchId);
     const [containerDetails, setContainerDetails] = useState(null);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [hasSearched, setHasSearched] = useState(Boolean(initialSearchId));
 
     const searchContainer = useCallback((id) => {
         const searchId = String(id || '').trim();
         if (!searchId) {
-            setError('Please enter a container ID.');
+            setError('Enter a container ID.');
             return;
         }
 
+        setHasSearched(true);
         setLoading(true);
         setContainerDetails(null);
         setError('');
 
-        fetch(`/lego/api/container/${encodeURIComponent(searchId)}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Container not found');
-                }
-                return response.json();
-            })
-            .then(data => {
-                setContainerDetails(data);
-                setLoading(false);
-            })
-            .catch(() => {
-                setError('Container not found. Please check the ID and try again.');
-                setLoading(false);
-            });
+        getJson(`/lego/api/container/${encodeURIComponent(searchId)}`)
+            .then(data => setContainerDetails(data))
+            .catch(() => setError('Container not found.'))
+            .finally(() => setLoading(false));
     }, []);
 
     useEffect(() => {
@@ -225,60 +367,110 @@ const ContainersTab = ({ initialSearchId = '' }) => {
         }
     }, [initialSearchId, searchContainer]);
 
-    return (
-        <section className="tab-content">
-            <h2>Container Search</h2>
+    const pieces = containerDetails?.pieces || [];
+    const location = containerDetails?.location?.box
+        ? `Box ${containerDetails.location.box}, slot ${String(containerDetails.location.position || '').toUpperCase()}`
+        : 'Unassigned';
 
-            <div className="search-bar">
-                <input
-                    type="text"
-                    placeholder="Enter container ID (e.g. c001)"
-                    value={containerId}
-                    onChange={(event) => setContainerId(event.target.value)}
-                    onKeyDown={(event) => event.key === 'Enter' && searchContainer(containerId)}
-                />
-                <button type="button" onClick={() => searchContainer(containerId)}>
-                    Search
-                </button>
+    return (
+        <section className="lego-section">
+            <div className="section-title-row">
+                <div>
+                    <h2>Containers</h2>
+                    <p>{containerDetails?.id || 'Search by ID'}</p>
+                </div>
             </div>
 
+            <form
+                className="search-form"
+                onSubmit={(event) => {
+                    event.preventDefault();
+                    searchContainer(containerId);
+                }}
+            >
+                <label htmlFor="container-search">Container ID</label>
+                <div className="input-row">
+                    <input
+                        id="container-search"
+                        type="text"
+                        placeholder="c001"
+                        value={containerId}
+                        onChange={(event) => setContainerId(event.target.value)}
+                        autoCapitalize="none"
+                        autoComplete="off"
+                    />
+                    <button type="submit" disabled={loading}>Search</button>
+                </div>
+            </form>
+
             <ErrorMessage message={error} />
-            {loading && <p className="muted">Loading...</p>}
+            {loading && <LoadingBlock label="Loading container" />}
+
+            {!loading && !containerDetails && !hasSearched && (
+                <EmptyBlock title="No container loaded" detail="Search results will appear here." />
+            )}
 
             {containerDetails && (
-                <div className="details-block">
-                    <h3>Container Information</h3>
-                    <p><strong>ID:</strong> {containerDetails.id}</p>
-                    <p>
-                        <strong>Location:</strong>{' '}
-                        {containerDetails.location?.box
-                            ? `Box ${containerDetails.location.box}, Position ${String(containerDetails.location.position || '').toUpperCase()}`
-                            : 'Not assigned to a location'}
-                    </p>
-                    <p>
-                        <strong>Pieces:</strong>{' '}
-                        {containerDetails.pieces.length === 1 ? '1 piece' : `${containerDetails.pieces.length} pieces`}
-                    </p>
-
-                    <div className="piece-list">
-                        {containerDetails.pieces.map((piece, index) => (
-                            <div key={`${piece.part_number}-${index}`} className="piece-row">
-                                <PieceImage piece={piece} />
-                                <div>
-                                    <strong>{piece.name || 'Unknown'}</strong>
-                                    <div>Part Number: {piece.part_number}</div>
-                                    <div>Category: {piece.category || 'Unknown'}</div>
-                                </div>
-                            </div>
-                        ))}
+                <>
+                    <div className="stats-row">
+                        <Stat label="Container" value={containerDetails.id} />
+                        <Stat label="Location" value={location} />
+                        <Stat label="Pieces" value={pieces.length} />
                     </div>
-                </div>
+
+                    {pieces.length > 0 ? (
+                        <div className="piece-list">
+                            {pieces.map((piece, index) => (
+                                <PieceRow
+                                    key={`${containerDetails.id}-${piece.part_number}-${index}`}
+                                    piece={piece}
+                                />
+                            ))}
+                        </div>
+                    ) : (
+                        <EmptyBlock title="Empty container" detail="No pieces are assigned to this container." />
+                    )}
+                </>
             )}
         </section>
     );
-};
+}
 
-const PiecesTab = ({ setActiveTab, setSearchContainerId }) => {
+function ResultCard({ piece, onOpenContainer }) {
+    const containers = piece.containers || [];
+
+    return (
+        <article className="result-card">
+            <PieceImage piece={piece} className="result-image" />
+            <div className="result-main">
+                <h3>{piece.name || 'Unknown piece'}</h3>
+                <div className="result-meta">
+                    <span>Part {piece.part_number}</span>
+                    <span>{piece.category || 'Unknown category'}</span>
+                </div>
+
+                <div className="container-chips">
+                    {containers.length > 0 ? (
+                        containers.map((container, index) => (
+                            <button
+                                type="button"
+                                key={`${piece.part_number}-${container.container_id}-${index}`}
+                                onClick={() => onOpenContainer(container.container_id)}
+                            >
+                                <strong>{container.container_id}</strong>
+                                <span>{container.location || 'No location'}</span>
+                            </button>
+                        ))
+                    ) : (
+                        <span className="quiet-text">No assigned containers</span>
+                    )}
+                </div>
+            </div>
+        </article>
+    );
+}
+
+function PiecesTab({ setActiveTab, setSearchContainerId }) {
     const [searchType, setSearchType] = useState('name');
     const [searchTerm, setSearchTerm] = useState('');
     const [categories, setCategories] = useState([]);
@@ -289,37 +481,36 @@ const PiecesTab = ({ setActiveTab, setSearchContainerId }) => {
     const [hasSearched, setHasSearched] = useState(false);
 
     useEffect(() => {
-        if (searchType === 'category' && categories.length === 0) {
-            fetch('/lego/api/categories')
-                .then(response => response.json())
-                .then(data => setCategories(Array.isArray(data) ? data : []))
-                .catch(() => setError('Failed to load categories. Please try again.'));
+        if (searchType !== 'category' || categories.length > 0) {
+            return;
         }
+
+        getJson('/lego/api/categories')
+            .then(data => {
+                const nextCategories = Array.isArray(data)
+                    ? data.filter(Boolean).sort((a, b) => String(a).localeCompare(String(b)))
+                    : [];
+                setCategories(nextCategories);
+            })
+            .catch(() => setError('Categories could not be loaded.'));
     }, [searchType, categories.length]);
 
     const searchPieces = () => {
         const termToSearch = searchType === 'category' ? selectedCategory : searchTerm.trim();
-
         if (!termToSearch) {
-            setError(searchType === 'category' ? 'Please select a category.' : 'Please enter a search term.');
+            setError(searchType === 'category' ? 'Select a category.' : 'Enter a search term.');
             return;
         }
 
+        setHasSearched(true);
         setLoading(true);
         setResults([]);
         setError('');
-        setHasSearched(true);
 
-        fetch(`/lego/api/piece/search?type=${searchType}&term=${encodeURIComponent(termToSearch)}`)
-            .then(response => response.json())
-            .then(data => {
-                setResults(Array.isArray(data) ? data : []);
-                setLoading(false);
-            })
-            .catch(() => {
-                setError('Failed to search pieces. Please try again.');
-                setLoading(false);
-            });
+        getJson(`/lego/api/piece/search?type=${searchType}&term=${encodeURIComponent(termToSearch)}`)
+            .then(data => setResults(Array.isArray(data) ? data : []))
+            .catch(() => setError('Piece search failed.'))
+            .finally(() => setLoading(false));
     };
 
     const openContainer = (containerId) => {
@@ -328,91 +519,120 @@ const PiecesTab = ({ setActiveTab, setSearchContainerId }) => {
     };
 
     return (
-        <section className="tab-content">
-            <h2>Piece Search</h2>
-
-            <div className="search-bar">
-                <select value={searchType} onChange={(event) => setSearchType(event.target.value)}>
-                    <option value="name">Name</option>
-                    <option value="part_number">Part Number</option>
-                    <option value="category">Category</option>
-                </select>
-
-                {searchType === 'category' ? (
-                    <select value={selectedCategory} onChange={(event) => setSelectedCategory(event.target.value)}>
-                        <option value="">Select a category...</option>
-                        {categories.map(category => (
-                            <option key={category} value={category}>{category}</option>
-                        ))}
-                    </select>
-                ) : (
-                    <input
-                        type="text"
-                        placeholder="Enter search term"
-                        value={searchTerm}
-                        onChange={(event) => setSearchTerm(event.target.value)}
-                        onKeyDown={(event) => event.key === 'Enter' && searchPieces()}
-                    />
-                )}
-
-                <button type="button" onClick={searchPieces}>
-                    Search
-                </button>
+        <section className="lego-section">
+            <div className="section-title-row">
+                <div>
+                    <h2>Pieces</h2>
+                    <p>{hasSearched ? `${results.length} result${results.length === 1 ? '' : 's'}` : 'Catalog search'}</p>
+                </div>
             </div>
+
+            <form
+                className="search-form"
+                onSubmit={(event) => {
+                    event.preventDefault();
+                    searchPieces();
+                }}
+            >
+                <div className="search-type-tabs" role="tablist" aria-label="Piece search type">
+                    {SEARCH_TYPES.map(type => (
+                        <button
+                            type="button"
+                            key={type.value}
+                            className={searchType === type.value ? 'active' : ''}
+                            onClick={() => {
+                                setSearchType(type.value);
+                                setError('');
+                            }}
+                        >
+                            {type.label}
+                        </button>
+                    ))}
+                </div>
+
+                <label htmlFor="piece-search-input">
+                    {searchType === 'category' ? 'Category' : 'Search'}
+                </label>
+                <div className="input-row">
+                    {searchType === 'category' ? (
+                        <select
+                            id="piece-search-input"
+                            value={selectedCategory}
+                            onChange={(event) => setSelectedCategory(event.target.value)}
+                        >
+                            <option value="">Select a category</option>
+                            {categories.map(category => (
+                                <option key={category} value={category}>{category}</option>
+                            ))}
+                        </select>
+                    ) : (
+                        <input
+                            id="piece-search-input"
+                            type="search"
+                            placeholder={searchType === 'part_number' ? '3001' : 'Brick'}
+                            value={searchTerm}
+                            onChange={(event) => setSearchTerm(event.target.value)}
+                            autoComplete="off"
+                        />
+                    )}
+                    <button type="submit" disabled={loading}>Search</button>
+                </div>
+            </form>
 
             <ErrorMessage message={error} />
-            {loading && <p className="muted">Loading...</p>}
+            {loading && <LoadingBlock label="Searching pieces" />}
 
-            {!loading && hasSearched && results.length === 0 && !error && (
-                <p className="muted">No pieces found matching your search.</p>
+            {!loading && !hasSearched && (
+                <EmptyBlock title="No search yet" detail="Matching pieces will appear here." />
             )}
 
-            <div className="results-grid">
-                {results.map(piece => (
-                    <article key={piece.part_number} className="piece-card">
-                        <PieceImage piece={piece} className="piece-card-image" />
-                        <div>
-                            <h3>{piece.name || 'Unknown Piece'}</h3>
-                            <p><strong>Part Number:</strong> {piece.part_number}</p>
-                            <p><strong>Category:</strong> {piece.category || 'Unknown'}</p>
-                            <p><strong>Found in:</strong></p>
+            {!loading && hasSearched && results.length === 0 && !error && (
+                <EmptyBlock title="No pieces found" detail="Try a broader search term." />
+            )}
 
-                            {piece.containers && piece.containers.length > 0 ? (
-                                <div className="container-links">
-                                    {piece.containers.map((container, index) => (
-                                        <button
-                                            type="button"
-                                            key={`${container.container_id}-${index}`}
-                                            onClick={() => openContainer(container.container_id)}
-                                        >
-                                            {container.container_id}
-                                            {container.location ? ` (${container.location})` : ' (no location assigned)'}
-                                        </button>
-                                    ))}
-                                </div>
-                            ) : (
-                                <p className="muted">Not found in any container.</p>
-                            )}
-                        </div>
-                    </article>
-                ))}
-            </div>
+            {results.length > 0 && (
+                <div className="results-grid">
+                    {results.map(piece => (
+                        <ResultCard
+                            key={piece.part_number}
+                            piece={piece}
+                            onOpenContainer={openContainer}
+                        />
+                    ))}
+                </div>
+            )}
         </section>
     );
-};
+}
 
-const Lego = () => {
+function Lego() {
     const [activeTab, setActiveTab] = useState('boxes');
     const [searchContainerId, setSearchContainerId] = useState('');
+
+    const tabs = [
+        { id: 'boxes', label: 'Boxes' },
+        { id: 'containers', label: 'Containers' },
+        { id: 'pieces', label: 'Pieces' },
+    ];
 
     const renderTabContent = () => {
         switch (activeTab) {
             case 'boxes':
-                return <BoxesTab setActiveTab={setActiveTab} setSearchContainerId={setSearchContainerId} />;
+                return (
+                    <BoxesTab
+                        setActiveTab={setActiveTab}
+                        setSearchContainerId={setSearchContainerId}
+                    />
+                );
             case 'containers':
                 return <ContainersTab initialSearchId={searchContainerId} />;
             case 'pieces':
-                return <PiecesTab setActiveTab={setActiveTab} setSearchContainerId={setSearchContainerId} />;
+                return (
+                    <PiecesTab
+                        setActiveTab={setActiveTab}
+                        setSearchContainerId={setSearchContainerId}
+                    />
+                );
             default:
                 return null;
         }
@@ -420,35 +640,29 @@ const Lego = () => {
 
     return (
         <main className="lego-page">
-            <h1>LEGO Collection Viewer</h1>
+            <header className="lego-header">
+                <div>
+                    <span className="app-kicker">LEGO DB</span>
+                    <h1>Collection Viewer</h1>
+                </div>
+            </header>
 
-            <nav className="tabs" aria-label="LEGO sections">
-                <button
-                    type="button"
-                    className={activeTab === 'boxes' ? 'active' : ''}
-                    onClick={() => setActiveTab('boxes')}
-                >
-                    Boxes
-                </button>
-                <button
-                    type="button"
-                    className={activeTab === 'containers' ? 'active' : ''}
-                    onClick={() => setActiveTab('containers')}
-                >
-                    Containers
-                </button>
-                <button
-                    type="button"
-                    className={activeTab === 'pieces' ? 'active' : ''}
-                    onClick={() => setActiveTab('pieces')}
-                >
-                    Pieces
-                </button>
+            <nav className="lego-nav" aria-label="LEGO sections">
+                {tabs.map(tab => (
+                    <button
+                        type="button"
+                        key={tab.id}
+                        className={activeTab === tab.id ? 'active' : ''}
+                        onClick={() => setActiveTab(tab.id)}
+                    >
+                        {tab.label}
+                    </button>
+                ))}
             </nav>
 
             {renderTabContent()}
         </main>
     );
-};
+}
 
 export default Lego;
