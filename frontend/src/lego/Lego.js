@@ -13,6 +13,17 @@ function formatPieceCount(count) {
     return count === 1 ? '1 piece' : `${count} pieces`;
 }
 
+function normalizeContainerInput(value) {
+    const rawValue = String(value || '').trim().toLowerCase();
+    const digits = rawValue.replace(/\D/g, '');
+
+    if (digits.length < 3) {
+        return '';
+    }
+
+    return `c${digits.slice(0, 3)}`;
+}
+
 function cleanImageSegment(value) {
     return String(value || '')
         .trim()
@@ -341,9 +352,11 @@ function ContainersTab({ initialSearchId = '' }) {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const [hasSearched, setHasSearched] = useState(Boolean(initialSearchId));
+    const [lastAutoSearch, setLastAutoSearch] = useState('');
 
     const searchContainer = useCallback((id) => {
-        const searchId = String(id || '').trim();
+        const normalizedId = normalizeContainerInput(id);
+        const searchId = normalizedId || String(id || '').trim();
         if (!searchId) {
             setError('Enter a container ID.');
             return;
@@ -361,8 +374,25 @@ function ContainersTab({ initialSearchId = '' }) {
     }, []);
 
     useEffect(() => {
+        const normalizedId = normalizeContainerInput(containerId);
+
+        if (!normalizedId || normalizedId === lastAutoSearch) {
+            return;
+        }
+
+        const timer = setTimeout(() => {
+            setLastAutoSearch(normalizedId);
+            setContainerId(normalizedId);
+            searchContainer(normalizedId);
+        }, 250);
+
+        return () => clearTimeout(timer);
+    }, [containerId, lastAutoSearch, searchContainer]);
+
+    useEffect(() => {
         if (initialSearchId) {
             setContainerId(initialSearchId);
+            setLastAutoSearch(initialSearchId);
             searchContainer(initialSearchId);
         }
     }, [initialSearchId, searchContainer]);
@@ -377,61 +407,81 @@ function ContainersTab({ initialSearchId = '' }) {
             <div className="section-title-row">
                 <div>
                     <h2>Containers</h2>
-                    <p>{containerDetails?.id || 'Search by ID'}</p>
+                    <p>{containerDetails?.id || 'Type 3 digits to load'}</p>
                 </div>
             </div>
 
-            <form
-                className="search-form"
-                onSubmit={(event) => {
-                    event.preventDefault();
-                    searchContainer(containerId);
-                }}
-            >
-                <label htmlFor="container-search">Container ID</label>
-                <div className="input-row">
-                    <input
-                        id="container-search"
-                        type="text"
-                        placeholder="c001"
-                        value={containerId}
-                        onChange={(event) => setContainerId(event.target.value)}
-                        autoCapitalize="none"
-                        autoComplete="off"
-                    />
-                    <button type="submit" disabled={loading}>Search</button>
-                </div>
-            </form>
-
-            <ErrorMessage message={error} />
-            {loading && <LoadingBlock label="Loading container" />}
-
-            {!loading && !containerDetails && !hasSearched && (
-                <EmptyBlock title="No container loaded" detail="Search results will appear here." />
-            )}
-
-            {containerDetails && (
-                <>
-                    <div className="stats-row">
-                        <Stat label="Container" value={containerDetails.id} />
-                        <Stat label="Location" value={location} />
-                        <Stat label="Pieces" value={pieces.length} />
+            <div className="container-workspace">
+                <form
+                    className="search-form container-search-form"
+                    onSubmit={(event) => {
+                        event.preventDefault();
+                        searchContainer(containerId);
+                    }}
+                >
+                    <label htmlFor="container-search">Container ID</label>
+                    <div className="input-row">
+                        <input
+                            id="container-search"
+                            type="text"
+                            placeholder="001 or c001"
+                            value={containerId}
+                            onChange={(event) => {
+                                const nextValue = event.target.value;
+                                const digitCount = nextValue.replace(/\D/g, '').length;
+                                setContainerId(nextValue);
+                                setError('');
+                                if (digitCount < 3) {
+                                    setContainerDetails(null);
+                                    setHasSearched(false);
+                                    setLastAutoSearch('');
+                                }
+                            }}
+                            autoCapitalize="none"
+                            autoComplete="off"
+                            inputMode="numeric"
+                        />
+                        <button type="submit" disabled={loading}>Search</button>
                     </div>
+                    <span className="form-hint">
+                        Auto-loads after 3 digits.
+                    </span>
+                </form>
 
-                    {pieces.length > 0 ? (
-                        <div className="piece-list">
-                            {pieces.map((piece, index) => (
-                                <PieceRow
-                                    key={`${containerDetails.id}-${piece.part_number}-${index}`}
-                                    piece={piece}
-                                />
-                            ))}
-                        </div>
-                    ) : (
-                        <EmptyBlock title="Empty container" detail="No pieces are assigned to this container." />
+                <div className="container-results">
+                    <ErrorMessage message={error} />
+                    {loading && <LoadingBlock label="Loading container" />}
+
+                    {!loading && !containerDetails && !hasSearched && (
+                        <EmptyBlock title="No container loaded" detail="Type a container number to show its card." />
                     )}
-                </>
-            )}
+
+                    {containerDetails && (
+                        <article className="container-card">
+                            <div className="container-card-header">
+                                <div>
+                                    <h3>{containerDetails.id}</h3>
+                                    <span>{location}</span>
+                                </div>
+                                <strong>{formatPieceCount(pieces.length)}</strong>
+                            </div>
+
+                            {pieces.length > 0 ? (
+                                <div className="container-piece-grid">
+                                    {pieces.map((piece, index) => (
+                                        <PieceRow
+                                            key={`${containerDetails.id}-${piece.part_number}-${index}`}
+                                            piece={piece}
+                                        />
+                                    ))}
+                                </div>
+                            ) : (
+                                <EmptyBlock title="Empty container" detail="No pieces are assigned to this container." />
+                            )}
+                        </article>
+                    )}
+                </div>
+            </div>
         </section>
     );
 }
