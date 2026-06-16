@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import './Lego.css';
 
 const POSITIONS = '0123456789ABCDEF'.split('');
+const BOX_DISPLAY_POSITIONS = ['0', '8', '1', '9', '2', 'A', '3', 'B', '4', 'C', '5', 'D', '6', 'E', '7', 'F'];
 
 const SEARCH_TYPES = [
     { value: 'name', label: 'Name' },
@@ -110,15 +111,6 @@ function EmptyBlock({ title, detail }) {
     );
 }
 
-function Stat({ label, value }) {
-    return (
-        <div className="lego-stat">
-            <span>{label}</span>
-            <strong>{value}</strong>
-        </div>
-    );
-}
-
 function PieceImage({ piece, className = '' }) {
     return (
         <span className={`piece-image-wrap ${className}`}>
@@ -220,12 +212,14 @@ function SlotModal({ slot, onClose, onViewContainer }) {
                         {slot.pieces.map((piece, index) => (
                             <div className="modal-piece-tile" key={`${piece.part_number}-${index}`}>
                                 <PieceImage piece={piece} className="modal-piece-image" />
-                                <span>{piece.part_number}</span>
+                                <span title={piece.name || piece.part_number || 'Unknown piece'}>
+                                    {piece.name || piece.part_number || 'Unknown piece'}
+                                </span>
                             </div>
                         ))}
                     </div>
                 ) : (
-                    <EmptyBlock title="No pieces listed" detail="This container is assigned here, but has no pieces in the box result." />
+                    <p className="quiet-text">No pieces listed.</p>
                 )}
 
                 <div className="slot-modal-actions">
@@ -305,9 +299,11 @@ function BoxesTab({ setActiveTab, setSearchContainerId }) {
     }, [loadBoxContents]);
 
     const slots = useMemo(() => normalizeBoxContents(boxContents), [boxContents]);
+    const displayedSlots = useMemo(() => {
+        const slotMap = new Map(slots.map(slot => [slot.position, slot]));
+        return BOX_DISPLAY_POSITIONS.map(position => slotMap.get(position));
+    }, [slots]);
     const selectedIndex = boxes.indexOf(selectedBox);
-    const filledSlots = slots.filter(slot => slot.containerId).length;
-    const pieceTotal = slots.reduce((total, slot) => total + slot.pieces.length, 0);
 
     const openSlot = (slot) => {
         if (!slot?.containerId) {
@@ -379,14 +375,8 @@ function BoxesTab({ setActiveTab, setSearchContainerId }) {
                 <LoadingBlock label={loadingBoxes ? 'Loading boxes' : 'Loading box'} />
             ) : loadedBox ? (
                 <>
-                    <div className="stats-row">
-                        <Stat label="Filled slots" value={`${filledSlots}/16`} />
-                        <Stat label="Pieces" value={pieceTotal} />
-                        <Stat label="Empty slots" value={16 - filledSlots} />
-                    </div>
-
                     <div className="slots-grid">
-                        {slots.map(slot => (
+                        {displayedSlots.map(slot => (
                             <SlotCard
                                 key={slot.position}
                                 slot={slot}
@@ -421,6 +411,23 @@ function PieceRow({ piece }) {
     );
 }
 
+function BoxPositionMap({ activePosition }) {
+    const normalizedActivePosition = String(activePosition || '').toUpperCase();
+
+    return (
+        <div className="box-position-map" aria-label={`Container position ${normalizedActivePosition || 'unassigned'}`}>
+            {BOX_DISPLAY_POSITIONS.map(position => (
+                <span
+                    key={position}
+                    className={position === normalizedActivePosition ? 'active' : ''}
+                >
+                    {position}
+                </span>
+            ))}
+        </div>
+    );
+}
+
 function ContainersTab({ initialSearchId = '' }) {
     const [containerId, setContainerId] = useState(initialSearchId);
     const [containerDetails, setContainerDetails] = useState(null);
@@ -437,6 +444,7 @@ function ContainersTab({ initialSearchId = '' }) {
         }
 
         setContainerId(normalizedId);
+        setLastAutoSearch(normalizedId);
         setHasSearched(true);
         setLoading(true);
         setContainerDetails(null);
@@ -528,10 +536,6 @@ function ContainersTab({ initialSearchId = '' }) {
                     <ErrorMessage message={error} />
                     {loading && <LoadingBlock label="Loading container" />}
 
-                    {!loading && !containerDetails && !hasSearched && (
-                        <EmptyBlock title="No container loaded" detail="Type a container number to show its card." />
-                    )}
-
                     {containerDetails && (
                         <article className="container-card">
                             <div className="container-card-header">
@@ -541,6 +545,8 @@ function ContainersTab({ initialSearchId = '' }) {
                                 </div>
                                 <strong>{formatPieceCount(pieces.length)}</strong>
                             </div>
+
+                            <BoxPositionMap activePosition={containerDetails.location?.position} />
 
                             {pieces.length > 0 ? (
                                 <div className="container-piece-grid">
@@ -552,7 +558,7 @@ function ContainersTab({ initialSearchId = '' }) {
                                     ))}
                                 </div>
                             ) : (
-                                <EmptyBlock title="Empty container" detail="No pieces are assigned to this container." />
+                                <p className="quiet-text">No pieces assigned.</p>
                             )}
                         </article>
                     )}
