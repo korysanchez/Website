@@ -328,12 +328,6 @@ function BoxesTab({ setActiveTab, setSearchContainerId }) {
 
     return (
         <section className="lego-section">
-            <div className="section-title-row">
-                <div>
-                    <h2>Boxes</h2>
-                    <p>Box {loadedBox || selectedBox || '--'}</p>
-                </div>
-            </div>
 
             <div className="toolbar">
                 <button
@@ -488,12 +482,6 @@ function ContainersTab({ initialSearchId = '' }) {
 
     return (
         <section className="lego-section">
-            <div className="section-title-row">
-                <div>
-                    <h2>Containers</h2>
-                    <p>{containerDetails?.id || 'Type 3 digits to load'}</p>
-                </div>
-            </div>
 
             <div className="container-workspace">
                 <form
@@ -652,12 +640,6 @@ function PiecesTab({ setActiveTab, setSearchContainerId }) {
 
     return (
         <section className="lego-section">
-            <div className="section-title-row">
-                <div>
-                    <h2>Pieces</h2>
-                    <p>{hasSearched ? `${results.length} result${results.length === 1 ? '' : 's'}` : 'Catalog search'}</p>
-                </div>
-            </div>
 
             <form
                 className="search-form"
@@ -774,8 +756,7 @@ function Lego() {
         <main className="lego-page">
             <header className="lego-header">
                 <div>
-                    <span className="app-kicker">LEGO DB</span>
-                    <h1>Collection Viewer</h1>
+                    <span>Collection Viewer</span>
                 </div>
             </header>
 

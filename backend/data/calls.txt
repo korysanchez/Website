@@ -1,0 +1,413 @@
+[2025-12-15T00:50:06.955357] link_token_create | user_id=1
+[2025-12-15T00:52:37.990852] link_token_create | user_id=1
+[2025-12-15T00:55:37.008996] link_token_create | user_id=1
+[2025-12-15T01:26:53.470807] link_token_create | user_id=1
+[2025-12-15T01:27:53.420263] link_token_create | user_id=1
+[2025-12-15T01:33:22.539738] link_token_create | user_id=1
+[2025-12-15T01:34:07.659399] item_public_token_exchange | user_id=1
+[2025-12-15T01:34:07.916764] accounts_get | user_id=1
+[2025-12-15T01:34:08.346445] transactions_from_db | user_id=1 | 0 transactions
+[2025-12-15T01:34:22.567545] transactions_sync | user_id=1 | account_id=Y0ew1qQy9xT080V7mgyAI8EPNPXbBmHzANm7Q | cursor=initial
+[2025-12-15T01:34:24.013824] transactions_sync | user_id=1 | account_id=NDp0Pkoer6cgmgyR5XYesOMjPjzamntyN5AzK | cursor=initial
+[2025-12-15T01:34:25.200365] transactions_sync | user_id=1 | account_id=edOA17z8gvTBYB9q3j81uAw6Y639JBI4yM69x | cursor=initial
+[2025-12-15T01:34:26.422085] transactions_sync | user_id=1 | account_id=zJbnOBA6vjsZvZgErqp6IZ0VYVyeNBCMpaEkv | cursor=initial
+[2025-12-15T01:34:27.853018] transactions_sync | user_id=1 | account_id=mBNJA7dVarskpk1qArVoSqDwmw45kvi8oRpE8 | cursor=initial
+[2025-12-15T01:35:16.100944] transactions_from_db | user_id=1 | 37 transactions
+[2025-12-15T01:35:38.060642] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-15T01:35:43.143129] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-15T01:35:47.330096] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-15T01:35:50.271245] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-15T01:35:54.302146] transactions_from_db | user_id=1 | 37 transactions
+[2025-12-15T01:36:00.315208] transactions_sync | user_id=1 | account_id=NDp0Pkoer6cgmgyR5XYesOMjPjzamntyN5AzK | cursor=continuing
+[2025-12-15T01:36:03.267103] transactions_sync | user_id=1 | account_id=NDp0Pkoer6cgmgyR5XYesOMjPjzamntyN5AzK | cursor=continuing
+[2025-12-15T01:36:03.952901] transactions_sync | user_id=1 | account_id=edOA17z8gvTBYB9q3j81uAw6Y639JBI4yM69x | cursor=continuing
+[2025-12-15T01:36:06.694106] transactions_sync | user_id=1 | account_id=edOA17z8gvTBYB9q3j81uAw6Y639JBI4yM69x | cursor=continuing
+[2025-12-15T01:36:07.375728] transactions_sync | user_id=1 | account_id=zJbnOBA6vjsZvZgErqp6IZ0VYVyeNBCMpaEkv | cursor=continuing
+[2025-12-15T01:36:10.233195] transactions_sync | user_id=1 | account_id=zJbnOBA6vjsZvZgErqp6IZ0VYVyeNBCMpaEkv | cursor=continuing
+[2025-12-15T01:36:10.867304] transactions_sync | user_id=1 | account_id=mBNJA7dVarskpk1qArVoSqDwmw45kvi8oRpE8 | cursor=continuing
+[2025-12-15T01:36:13.768066] transactions_sync | user_id=1 | account_id=mBNJA7dVarskpk1qArVoSqDwmw45kvi8oRpE8 | cursor=continuing
+[2025-12-15T01:36:14.427937] link_token_create | user_id=1
+[2025-12-15T01:36:14.653462] transactions_from_db | user_id=1 | 109 transactions
+[2025-12-15T01:41:46.341630] link_token_create | user_id=1
+[2025-12-15T01:41:46.689052] transactions_from_db | user_id=1 | 109 transactions
+[2025-12-15T01:41:49.826333] transactions_from_db | user_id=1 | 0 transactions
+[2025-12-15T01:41:51.091959] transactions_from_db | user_id=1 | 0 transactions
+[2025-12-15T01:41:52.663832] transactions_from_db | user_id=1 | 0 transactions
+[2025-12-15T01:42:39.693625] item_public_token_exchange | user_id=1
+[2025-12-15T01:42:40.000083] accounts_get | user_id=1
+[2025-12-15T01:42:40.523866] transactions_from_db | user_id=1 | 0 transactions
+[2025-12-15T01:42:54.729842] transactions_sync | user_id=1 | account_id=mOqEXAJkaqFJa31vejvyunEObXP66KIvqe6e9 | cursor=initial
+[2025-12-15T01:42:56.164085] transactions_sync | user_id=1 | account_id=YKJEb1wX9JHXbZV3xe35FZD34xYnnvCq1d5d3 | cursor=initial
+[2025-12-15T01:42:57.522796] transactions_sync | user_id=1 | account_id=z1xMZOnavxIjz8g3yd3bIkXm576zzEInNJ8Ja | cursor=initial
+[2025-12-15T01:43:00.355813] transactions_sync | user_id=1 | account_id=z1xMZOnavxIjz8g3yd3bIkXm576zzEInNJ8Ja | cursor=continuing
+[2025-12-15T01:43:01.012051] transactions_sync | user_id=1 | account_id=d8MpqDkLAMIMeQnD70Docga7rMwBBeIQENv43 | cursor=initial
+[2025-12-15T01:43:04.131921] transactions_sync | user_id=1 | account_id=d8MpqDkLAMIMeQnD70Docga7rMwBBeIQENv43 | cursor=continuing
+[2025-12-15T01:43:04.750753] transactions_sync | user_id=1 | account_id=w6rMxAXRorHgya0nqdnvcJg7eVOpp9Hv938DJ | cursor=initial
+[2025-12-15T01:43:07.685887] transactions_sync | user_id=1 | account_id=w6rMxAXRorHgya0nqdnvcJg7eVOpp9Hv938DJ | cursor=continuing
+[2025-12-15T01:43:08.354944] link_token_create | user_id=1
+[2025-12-15T01:43:08.543476] transactions_from_db | user_id=1 | 109 transactions
+[2025-12-15T01:45:55.093466] transactions_from_db | user_id=1 | 109 transactions
+[2025-12-15T01:45:57.493489] transactions_from_db | user_id=1 | 109 transactions
+[2025-12-15T01:45:59.853370] transactions_from_db | user_id=1 | 109 transactions
+[2025-12-15T01:46:01.380026] transactions_from_db | user_id=1 | 0 transactions
+[2025-12-15T01:46:46.449239] link_token_create | user_id=1
+[2025-12-15T01:47:11.120787] item_public_token_exchange | user_id=1
+[2025-12-15T01:47:11.367629] accounts_get | user_id=1
+[2025-12-15T01:47:11.788887] transactions_from_db | user_id=1 | 0 transactions
+[2025-12-15T01:47:14.432069] transactions_sync | user_id=1 | account_id=ePZVJ8r9xjc8QgZDrK7dCgm9bqKz9dieq8m4P | cursor=initial
+[2025-12-15T01:47:14.885927] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=initial
+[2025-12-15T01:47:15.295752] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=initial
+[2025-12-15T01:47:15.656866] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=initial
+[2025-12-15T01:47:16.014435] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=initial
+[2025-12-15T01:47:19.300139] transactions_from_db | user_id=1 | 0 transactions
+[2025-12-15T01:47:21.509204] link_token_create | user_id=1
+[2025-12-15T01:47:21.691654] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-15T01:47:26.830809] link_token_create | user_id=1
+[2025-12-15T01:47:26.966907] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-15T01:47:28.829019] transactions_sync | user_id=1 | account_id=ePZVJ8r9xjc8QgZDrK7dCgm9bqKz9dieq8m4P | cursor=initial
+[2025-12-15T01:47:30.006846] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=initial
+[2025-12-15T01:47:32.773887] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=continuing
+[2025-12-15T01:47:33.453576] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=initial
+[2025-12-15T01:47:36.570306] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=continuing
+[2025-12-15T01:47:37.281799] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=initial
+[2025-12-15T01:47:40.382236] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=continuing
+[2025-12-15T01:47:41.081611] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=initial
+[2025-12-15T01:47:44.237927] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=continuing
+[2025-12-15T01:47:56.084308] link_token_create | user_id=1
+[2025-12-15T01:47:56.227209] transactions_from_db | user_id=1 | 109 transactions
+[2025-12-15T01:48:28.097679] transactions_from_db | user_id=1 | 109 transactions
+[2025-12-15T01:48:31.053222] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-15T01:48:35.342291] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-15T01:48:39.711050] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-15T01:48:46.237232] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-15T01:48:48.610374] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-15T01:48:51.206735] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-15T01:52:29.847553] link_token_create | user_id=2
+[2025-12-15T02:03:46.423617] link_token_create | user_id=2
+[2025-12-15T02:05:10.124443] item_public_token_exchange | user_id=2
+[2025-12-15T02:05:10.469718] accounts_get | user_id=2
+[2025-12-15T02:05:10.833887] transactions_from_db | user_id=2 | 0 transactions
+[2025-12-15T02:05:17.929718] transactions_from_cache | user_id=2 | Cache hit
+[2025-12-15T02:05:25.450107] transactions_sync | user_id=2 | account_id=YK38x6eZwqCZ039k7p5JfZNvJJ9N0ACwgEY0E | cursor=initial
+[2025-12-15T02:05:28.775818] transactions_sync | user_id=2 | account_id=YK38x6eZwqCZ039k7p5JfZNvJJ9N0ACwgEY0E | cursor=continuing
+[2025-12-15T02:05:31.889568] transactions_sync | user_id=2 | account_id=YK38x6eZwqCZ039k7p5JfZNvJJ9N0ACwgEY0E | cursor=continuing
+[2025-12-15T02:05:33.508329] link_token_create | user_id=2
+[2025-12-15T02:05:33.781815] transactions_from_db | user_id=2 | 231 transactions
+[2025-12-15T02:07:15.368203] transactions_from_cache | user_id=2 | Cache hit
+[2025-12-15T02:08:09.034244] transactions_from_cache | user_id=2 | Cache hit
+[2025-12-15T02:08:15.081973] link_token_create | user_id=2
+[2025-12-15T02:08:15.435721] transactions_from_cache | user_id=2 | Cache hit
+[2025-12-15T02:09:49.782859] transactions_sync | user_id=2 | account_id=YK38x6eZwqCZ039k7p5JfZNvJJ9N0ACwgEY0E | cursor=continuing
+[2025-12-15T02:09:51.451094] transactions_from_db | user_id=2 | 231 transactions
+[2025-12-15T02:09:53.164792] link_token_create | user_id=2
+[2025-12-15T02:09:53.360243] transactions_from_cache | user_id=2 | Cache hit
+[2025-12-15T02:13:59.255133] transactions_sync | user_id=2 | account_id=YK38x6eZwqCZ039k7p5JfZNvJJ9N0ACwgEY0E | cursor=continuing
+[2025-12-15T02:14:07.225895] transactions_from_db | user_id=2 | 231 transactions
+[2025-12-15T02:14:08.760017] link_token_create | user_id=2
+[2025-12-15T02:14:08.988816] transactions_from_cache | user_id=2 | Cache hit
+[2025-12-15T02:23:17.713909] transactions_from_db | user_id=1 | 109 transactions
+[2025-12-15T03:10:27.241437] transactions_from_db | user_id=1 | 109 transactions
+[2025-12-15T03:10:36.677798] link_token_create | user_id=1
+[2025-12-15T03:10:37.026034] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-15T03:11:34.154341] item_public_token_exchange | user_id=1
+[2025-12-15T03:11:34.403964] accounts_get | user_id=1
+[2025-12-15T03:11:34.764237] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-15T03:11:47.783142] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-15T03:14:04.404366] item_public_token_exchange | user_id=1
+[2025-12-15T03:14:04.789472] accounts_get | user_id=1
+[2025-12-15T03:14:05.155685] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-15T03:14:12.242325] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-15T03:14:19.606171] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-15T03:14:27.466856] transactions_sync | user_id=1 | account_id=D04Z4XJyvLCDyrPe9799fpJqeQyRdKCXJq03r | cursor=initial
+[2025-12-15T03:14:27.889920] transactions_sync | user_id=1 | account_id=VaovOY3JwqF5Mgx8nJPPTRQkvOeBzMF43PmMd | cursor=initial
+[2025-12-15T03:14:29.068833] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=continuing
+[2025-12-15T03:14:29.444020] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=continuing
+[2025-12-15T03:14:29.787089] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=continuing
+[2025-12-15T03:14:30.155892] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=continuing
+[2025-12-15T03:14:31.415536] transactions_from_db | user_id=1 | 135 transactions
+[2025-12-15T03:15:04.478487] transactions_sync | user_id=1 | account_id=D04Z4XJyvLCDyrPe9799fpJqeQyRdKCXJq03r | cursor=initial
+[2025-12-15T03:15:04.831710] transactions_sync | user_id=1 | account_id=VaovOY3JwqF5Mgx8nJPPTRQkvOeBzMF43PmMd | cursor=continuing
+[2025-12-15T03:15:05.192225] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=continuing
+[2025-12-15T03:15:05.564849] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=continuing
+[2025-12-15T03:15:05.935691] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=continuing
+[2025-12-15T03:15:06.289098] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=continuing
+[2025-12-15T03:15:09.980362] transactions_from_db | user_id=1 | 135 transactions
+[2025-12-15T03:15:12.074142] link_token_create | user_id=1
+[2025-12-15T03:15:12.271429] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-15T14:42:04.832931] transactions_from_db | user_id=1 | 135 transactions
+[2025-12-15T19:43:54.981479] link_token_create | user_id=1
+[2025-12-15T19:43:55.334077] transactions_from_db | user_id=1 | 135 transactions
+[2025-12-15T19:43:55.341727] transactions_sync | user_id=1 | account_id=D04Z4XJyvLCDyrPe9799fpJqeQyRdKCXJq03r | cursor=initial
+[2025-12-15T19:43:55.740357] transactions_sync | user_id=1 | account_id=VaovOY3JwqF5Mgx8nJPPTRQkvOeBzMF43PmMd | cursor=continuing
+[2025-12-15T19:43:56.100027] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=continuing
+[2025-12-15T19:43:56.575358] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=continuing
+[2025-12-15T19:43:57.055161] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=continuing
+[2025-12-15T19:43:57.568409] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=continuing
+[2025-12-15T19:43:58.069901] transactions_from_db | user_id=1 | 138 transactions
+[2025-12-16T03:37:23.583571] transactions_from_db | user_id=1 | 136 transactions
+[2025-12-16T03:37:27.653046] transactions_sync | user_id=1 | account_id=D04Z4XJyvLCDyrPe9799fpJqeQyRdKCXJq03r | cursor=initial
+[2025-12-16T03:37:28.177250] transactions_sync | user_id=1 | account_id=VaovOY3JwqF5Mgx8nJPPTRQkvOeBzMF43PmMd | cursor=continuing
+[2025-12-16T03:37:28.527208] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=continuing
+[2025-12-16T03:37:28.938536] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=continuing
+[2025-12-16T03:37:29.341108] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=continuing
+[2025-12-16T03:37:29.760066] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=continuing
+[2025-12-16T03:37:30.325503] transactions_from_db | user_id=1 | 137 transactions
+[2025-12-16T03:37:32.567590] link_token_create | user_id=1
+[2025-12-16T03:37:32.790205] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-16T03:40:34.194869] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-16T03:40:39.470114] link_token_create | user_id=1
+[2025-12-16T03:40:39.852055] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-16T03:41:11.842832] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-16T03:41:15.360412] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-16T03:41:21.211964] link_token_create | user_id=1
+[2025-12-16T03:41:21.349261] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-16T03:41:52.023468] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-16T03:41:54.575315] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-16T03:41:57.201107] link_token_create | user_id=1
+[2025-12-16T03:41:57.388452] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-16T03:42:17.533523] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-16T03:42:21.541027] link_token_create | user_id=1
+[2025-12-16T03:42:21.674201] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-16T03:42:55.374168] transactions_from_db | user_id=1 | 137 transactions
+[2025-12-16T03:43:25.217435] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-16T03:43:30.460372] link_token_create | user_id=1
+[2025-12-16T03:43:30.800050] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-16T03:43:54.744125] link_token_create | user_id=1
+[2025-12-16T03:43:54.930816] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-16T03:44:29.226410] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-16T03:44:36.225424] link_token_create | user_id=1
+[2025-12-16T03:44:36.362420] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-16T03:44:43.527396] transactions_sync | user_id=1 | account_id=D04Z4XJyvLCDyrPe9799fpJqeQyRdKCXJq03r | cursor=initial
+[2025-12-16T03:44:43.879903] transactions_sync | user_id=1 | account_id=VaovOY3JwqF5Mgx8nJPPTRQkvOeBzMF43PmMd | cursor=continuing
+[2025-12-16T03:44:44.226027] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=continuing
+[2025-12-16T03:44:44.612588] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=continuing
+[2025-12-16T03:44:44.984875] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=continuing
+[2025-12-16T03:44:45.351740] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=continuing
+[2025-12-16T03:44:45.810302] transactions_from_db | user_id=1 | 137 transactions
+[2025-12-16T03:45:01.415360] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-16T03:45:14.525135] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-16T03:45:16.168204] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-16T03:45:21.775492] transactions_sync | user_id=1 | account_id=D04Z4XJyvLCDyrPe9799fpJqeQyRdKCXJq03r | cursor=initial
+[2025-12-16T03:45:22.126826] transactions_sync | user_id=1 | account_id=VaovOY3JwqF5Mgx8nJPPTRQkvOeBzMF43PmMd | cursor=continuing
+[2025-12-16T03:45:22.456324] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=continuing
+[2025-12-16T03:45:22.837478] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=continuing
+[2025-12-16T03:45:23.207595] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=continuing
+[2025-12-16T03:45:23.577675] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=continuing
+[2025-12-16T03:45:24.031066] transactions_from_db | user_id=1 | 137 transactions
+[2025-12-16T03:47:38.427756] transactions_sync | user_id=1 | account_id=D04Z4XJyvLCDyrPe9799fpJqeQyRdKCXJq03r | cursor=initial
+[2025-12-16T03:47:38.924392] transactions_sync | user_id=1 | account_id=VaovOY3JwqF5Mgx8nJPPTRQkvOeBzMF43PmMd | cursor=continuing
+[2025-12-16T03:47:39.285989] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=continuing
+[2025-12-16T03:47:39.657758] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=continuing
+[2025-12-16T03:47:40.014137] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=continuing
+[2025-12-16T03:47:40.396753] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=continuing
+[2025-12-16T03:47:41.356522] transactions_from_db | user_id=1 | 137 transactions
+[2025-12-16T03:47:48.102854] link_token_create | user_id=1
+[2025-12-16T03:47:48.283405] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-16T03:47:53.309413] link_token_create | user_id=1
+[2025-12-16T03:47:53.505507] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-16T03:48:03.104841] transactions_sync | user_id=1 | account_id=D04Z4XJyvLCDyrPe9799fpJqeQyRdKCXJq03r | cursor=initial
+[2025-12-16T03:48:03.438273] transactions_sync | user_id=1 | account_id=VaovOY3JwqF5Mgx8nJPPTRQkvOeBzMF43PmMd | cursor=continuing
+[2025-12-16T03:48:03.779524] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=continuing
+[2025-12-16T03:48:04.269169] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=continuing
+[2025-12-16T03:48:04.635626] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=continuing
+[2025-12-16T03:48:04.980163] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=continuing
+[2025-12-16T03:48:57.553952] transactions_from_db | user_id=1 | 137 transactions
+[2025-12-16T03:48:58.145349] link_token_create | user_id=1
+[2025-12-16T03:48:58.287920] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-16T03:52:22.413388] link_token_create | user_id=1
+[2025-12-16T03:52:22.734047] transactions_from_db | user_id=1 | 139 transactions
+[2025-12-16T03:52:28.759297] transactions_sync | user_id=1 | account_id=D04Z4XJyvLCDyrPe9799fpJqeQyRdKCXJq03r | cursor=initial
+[2025-12-16T03:52:29.109312] transactions_sync | user_id=1 | account_id=VaovOY3JwqF5Mgx8nJPPTRQkvOeBzMF43PmMd | cursor=initial
+[2025-12-16T03:52:30.135210] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=initial
+[2025-12-16T03:52:33.141857] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=continuing
+[2025-12-16T03:52:33.933734] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=initial
+[2025-12-16T03:52:36.963482] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=continuing
+[2025-12-16T03:52:37.724446] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=initial
+[2025-12-16T03:52:40.689719] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=continuing
+[2025-12-16T03:52:41.450676] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=initial
+[2025-12-16T03:52:44.414342] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=continuing
+[2025-12-16T03:52:45.269869] transactions_from_db | user_id=1 | 139 transactions
+[2025-12-16T03:52:50.472949] link_token_create | user_id=1
+[2025-12-16T03:52:50.677994] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-16T03:52:55.638523] transactions_sync | user_id=1 | account_id=D04Z4XJyvLCDyrPe9799fpJqeQyRdKCXJq03r | cursor=initial
+[2025-12-16T03:52:55.994445] transactions_sync | user_id=1 | account_id=VaovOY3JwqF5Mgx8nJPPTRQkvOeBzMF43PmMd | cursor=continuing
+[2025-12-16T03:52:56.337005] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=continuing
+[2025-12-16T03:52:56.706098] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=continuing
+[2025-12-16T03:52:57.059123] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=continuing
+[2025-12-16T03:52:57.405698] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=continuing
+[2025-12-16T03:52:57.848519] transactions_from_db | user_id=1 | 139 transactions
+[2025-12-16T03:52:59.507789] transactions_sync | user_id=1 | account_id=D04Z4XJyvLCDyrPe9799fpJqeQyRdKCXJq03r | cursor=initial
+[2025-12-16T03:52:59.856951] transactions_sync | user_id=1 | account_id=VaovOY3JwqF5Mgx8nJPPTRQkvOeBzMF43PmMd | cursor=initial
+[2025-12-16T03:53:00.874229] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=initial
+[2025-12-16T03:53:04.103637] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=continuing
+[2025-12-16T03:53:04.831705] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=initial
+[2025-12-16T03:53:08.064834] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=continuing
+[2025-12-16T03:53:08.850152] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=initial
+[2025-12-16T03:53:12.058360] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=continuing
+[2025-12-16T03:53:12.855771] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=initial
+[2025-12-16T03:53:15.983343] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=continuing
+[2025-12-16T03:53:16.761400] link_token_create | user_id=1
+[2025-12-16T03:53:16.978050] transactions_from_db | user_id=1 | 139 transactions
+[2025-12-16T03:53:43.538594] transactions_sync | user_id=1 | account_id=D04Z4XJyvLCDyrPe9799fpJqeQyRdKCXJq03r | cursor=initial
+[2025-12-16T03:53:43.880280] transactions_sync | user_id=1 | account_id=VaovOY3JwqF5Mgx8nJPPTRQkvOeBzMF43PmMd | cursor=initial
+[2025-12-16T03:53:45.015207] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=initial
+[2025-12-16T03:53:48.192411] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=continuing
+[2025-12-16T03:53:48.912106] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=initial
+[2025-12-16T03:53:52.058691] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=continuing
+[2025-12-16T03:53:52.831809] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=initial
+[2025-12-16T03:53:56.015992] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=continuing
+[2025-12-16T03:53:56.822919] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=initial
+[2025-12-16T03:53:59.784226] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=continuing
+[2025-12-16T03:54:00.609643] transactions_from_db | user_id=1 | 139 transactions
+[2025-12-16T03:54:14.167780] transactions_sync | user_id=1 | account_id=D04Z4XJyvLCDyrPe9799fpJqeQyRdKCXJq03r | cursor=initial
+[2025-12-16T03:54:14.532359] transactions_sync | user_id=1 | account_id=VaovOY3JwqF5Mgx8nJPPTRQkvOeBzMF43PmMd | cursor=continuing
+[2025-12-16T03:54:14.879735] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=continuing
+[2025-12-16T03:54:15.240045] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=continuing
+[2025-12-16T03:54:15.599550] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=continuing
+[2025-12-16T03:54:15.945021] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=continuing
+[2025-12-16T03:54:16.388590] transactions_from_db | user_id=1 | 139 transactions
+[2025-12-16T03:54:19.000588] link_token_create | user_id=1
+[2025-12-16T03:54:19.173957] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-16T03:55:54.333878] transactions_sync | user_id=1 | account_id=D04Z4XJyvLCDyrPe9799fpJqeQyRdKCXJq03r | cursor=initial
+[2025-12-16T03:55:54.849022] transactions_sync | user_id=1 | account_id=VaovOY3JwqF5Mgx8nJPPTRQkvOeBzMF43PmMd | cursor=initial
+[2025-12-16T03:55:55.866242] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=initial
+[2025-12-16T03:55:58.841774] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=continuing
+[2025-12-16T03:55:59.535221] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=initial
+[2025-12-16T03:56:02.615073] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=continuing
+[2025-12-16T03:56:03.371795] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=initial
+[2025-12-16T03:56:06.371568] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=continuing
+[2025-12-16T03:56:07.170839] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=initial
+[2025-12-16T03:56:10.182706] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=continuing
+[2025-12-16T03:56:11.008607] transactions_from_db | user_id=1 | 139 transactions
+[2025-12-16T03:59:44.121582] link_token_create | user_id=1
+[2025-12-16T03:59:44.437344] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-16T11:23:50.800129] link_token_create | user_id=1
+[2025-12-16T11:23:51.151324] transactions_sync | user_id=1 | account_id=D04Z4XJyvLCDyrPe9799fpJqeQyRdKCXJq03r | cursor=initial
+[2025-12-16T11:23:51.526195] transactions_sync | user_id=1 | account_id=VaovOY3JwqF5Mgx8nJPPTRQkvOeBzMF43PmMd | cursor=continuing
+[2025-12-16T11:23:51.874706] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=continuing
+[2025-12-16T11:23:52.216579] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=continuing
+[2025-12-16T11:23:52.596378] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=continuing
+[2025-12-16T11:23:52.949263] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=continuing
+[2025-12-16T11:23:53.364076] transactions_from_db | user_id=1 | 139 transactions
+[2025-12-16T11:23:53.374726] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-16T11:24:30.535126] transactions_sync | user_id=1 | account_id=D04Z4XJyvLCDyrPe9799fpJqeQyRdKCXJq03r | cursor=initial
+[2025-12-16T11:24:30.900354] transactions_sync | user_id=1 | account_id=VaovOY3JwqF5Mgx8nJPPTRQkvOeBzMF43PmMd | cursor=initial
+[2025-12-16T11:24:32.043175] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=initial
+[2025-12-16T11:24:35.162520] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=continuing
+[2025-12-16T11:24:35.911328] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=initial
+[2025-12-16T11:24:39.061790] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=continuing
+[2025-12-16T11:24:39.851129] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=initial
+[2025-12-16T11:24:43.009930] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=continuing
+[2025-12-16T11:24:43.852494] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=initial
+[2025-12-16T11:24:47.038671] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=continuing
+[2025-12-16T11:24:47.872838] transactions_from_db | user_id=1 | 139 transactions
+[2025-12-16T11:25:46.601526] link_token_create | user_id=1
+[2025-12-16T11:25:46.805344] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-16T21:37:03.092351] transactions_sync | user_id=1 | account_id=D04Z4XJyvLCDyrPe9799fpJqeQyRdKCXJq03r | cursor=initial
+[2025-12-16T21:37:03.568287] transactions_sync | user_id=1 | account_id=VaovOY3JwqF5Mgx8nJPPTRQkvOeBzMF43PmMd | cursor=continuing
+[2025-12-16T21:37:03.881243] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=continuing
+[2025-12-16T21:37:04.359504] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=continuing
+[2025-12-16T21:37:04.870214] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=continuing
+[2025-12-16T21:37:05.353216] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=continuing
+[2025-12-16T21:37:05.856839] transactions_from_db | user_id=1 | 141 transactions
+[2025-12-16T21:37:05.883492] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-17T02:04:52.763661] transactions_from_db | user_id=1 | 141 transactions
+[2025-12-17T02:04:58.243395] transactions_sync | user_id=1 | account_id=D04Z4XJyvLCDyrPe9799fpJqeQyRdKCXJq03r | cursor=initial
+[2025-12-17T02:04:58.702383] transactions_sync | user_id=1 | account_id=VaovOY3JwqF5Mgx8nJPPTRQkvOeBzMF43PmMd | cursor=continuing
+[2025-12-17T02:04:59.030883] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=continuing
+[2025-12-17T02:04:59.559430] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=continuing
+[2025-12-17T02:05:00.032998] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=continuing
+[2025-12-17T02:05:00.515600] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=continuing
+[2025-12-17T02:05:01.124699] transactions_from_db | user_id=1 | 144 transactions
+[2025-12-17T02:05:04.732146] link_token_create | user_id=1
+[2025-12-17T02:05:04.882953] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-17T02:05:08.609019] transactions_sync | user_id=1 | account_id=D04Z4XJyvLCDyrPe9799fpJqeQyRdKCXJq03r | cursor=initial
+[2025-12-17T02:05:08.962421] transactions_sync | user_id=1 | account_id=VaovOY3JwqF5Mgx8nJPPTRQkvOeBzMF43PmMd | cursor=initial
+[2025-12-17T02:05:10.030013] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=initial
+[2025-12-17T02:05:13.200945] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=continuing
+[2025-12-17T02:05:14.153782] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=initial
+[2025-12-17T02:05:17.154761] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=continuing
+[2025-12-17T02:05:18.047624] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=initial
+[2025-12-17T02:05:20.935586] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=continuing
+[2025-12-17T02:05:21.898659] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=initial
+[2025-12-17T02:05:25.021682] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=continuing
+[2025-12-17T02:05:26.011216] transactions_from_db | user_id=1 | 144 transactions
+[2025-12-17T02:06:53.331243] link_token_create | user_id=1
+[2025-12-17T02:06:53.727085] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-17T15:27:04.873056] transactions_from_db | user_id=1 | 144 transactions
+[2025-12-17T15:27:04.882396] transactions_sync | user_id=1 | account_id=D04Z4XJyvLCDyrPe9799fpJqeQyRdKCXJq03r | cursor=initial
+[2025-12-17T15:27:05.364764] transactions_sync | user_id=1 | account_id=VaovOY3JwqF5Mgx8nJPPTRQkvOeBzMF43PmMd | cursor=continuing
+[2025-12-17T15:27:05.746844] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=continuing
+[2025-12-17T15:27:06.204332] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=continuing
+[2025-12-17T15:27:06.647218] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=continuing
+[2025-12-17T15:27:07.088383] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=continuing
+[2025-12-17T15:27:07.706338] transactions_from_db | user_id=1 | 144 transactions
+[2025-12-19T15:29:34.695740] transactions_sync | user_id=1 | account_id=D04Z4XJyvLCDyrPe9799fpJqeQyRdKCXJq03r | cursor=initial
+[2025-12-19T15:29:35.312325] transactions_sync | user_id=1 | account_id=VaovOY3JwqF5Mgx8nJPPTRQkvOeBzMF43PmMd | cursor=continuing
+[2025-12-19T15:29:35.723123] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=continuing
+[2025-12-19T15:29:36.317876] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=continuing
+[2025-12-19T15:29:36.890707] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=continuing
+[2025-12-19T15:29:37.428249] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=continuing
+[2025-12-19T15:29:38.003955] transactions_from_db | user_id=1 | 147 transactions
+[2025-12-19T15:29:38.136512] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-28T17:45:11.734189] transactions_sync | user_id=1 | account_id=D04Z4XJyvLCDyrPe9799fpJqeQyRdKCXJq03r | cursor=initial
+[2025-12-28T17:45:12.293362] transactions_sync | user_id=1 | account_id=VaovOY3JwqF5Mgx8nJPPTRQkvOeBzMF43PmMd | cursor=continuing
+[2025-12-28T17:45:12.633837] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=continuing
+[2025-12-28T17:45:13.372600] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=continuing
+[2025-12-28T17:45:14.048699] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=continuing
+[2025-12-28T17:45:14.793959] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=continuing
+[2025-12-28T17:45:15.499641] transactions_from_db | user_id=1 | 158 transactions
+[2025-12-28T17:45:15.608670] transactions_from_cache | user_id=1 | Cache hit
+[2025-12-31T02:37:07.302903] transactions_from_db | user_id=1 | 158 transactions
+[2025-12-31T02:37:23.120194] transactions_sync | user_id=1 | account_id=D04Z4XJyvLCDyrPe9799fpJqeQyRdKCXJq03r | cursor=initial
+[2025-12-31T02:37:23.715101] transactions_sync | user_id=1 | account_id=VaovOY3JwqF5Mgx8nJPPTRQkvOeBzMF43PmMd | cursor=continuing
+[2025-12-31T02:37:24.166880] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=continuing
+[2025-12-31T02:37:24.706699] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=continuing
+[2025-12-31T02:37:25.295109] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=continuing
+[2025-12-31T02:37:25.844982] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=continuing
+[2025-12-31T02:37:26.405348] transactions_from_db | user_id=1 | 164 transactions
+[2026-01-03T01:37:19.752313] transactions_sync | user_id=1 | account_id=D04Z4XJyvLCDyrPe9799fpJqeQyRdKCXJq03r | cursor=initial
+[2026-01-03T01:37:20.204055] transactions_sync | user_id=1 | account_id=VaovOY3JwqF5Mgx8nJPPTRQkvOeBzMF43PmMd | cursor=continuing
+[2026-01-03T01:37:20.532190] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=continuing
+[2026-01-03T01:37:21.158397] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=continuing
+[2026-01-03T01:37:21.724595] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=continuing
+[2026-01-03T01:37:22.328960] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=continuing
+[2026-01-03T01:37:22.965223] transactions_from_db | user_id=1 | 172 transactions
+[2026-01-03T01:37:22.979515] transactions_from_cache | user_id=1 | Cache hit
+[2026-01-03T01:37:45.832739] transactions_sync | user_id=1 | account_id=D04Z4XJyvLCDyrPe9799fpJqeQyRdKCXJq03r | cursor=initial
+[2026-01-03T01:37:46.161903] transactions_sync | user_id=1 | account_id=VaovOY3JwqF5Mgx8nJPPTRQkvOeBzMF43PmMd | cursor=continuing
+[2026-01-03T01:37:46.502227] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=continuing
+[2026-01-03T01:37:46.860113] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=continuing
+[2026-01-03T01:37:47.204216] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=continuing
+[2026-01-03T01:37:47.550998] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=continuing
+[2026-01-03T01:37:48.018926] transactions_from_db | user_id=1 | 172 transactions
+[2026-01-03T15:36:21.955246] link_token_create | user_id=1
+[2026-01-03T15:36:22.232080] transactions_sync | user_id=1 | account_id=D04Z4XJyvLCDyrPe9799fpJqeQyRdKCXJq03r | cursor=initial
+[2026-01-03T15:36:22.567502] transactions_sync | user_id=1 | account_id=VaovOY3JwqF5Mgx8nJPPTRQkvOeBzMF43PmMd | cursor=continuing
+[2026-01-03T15:36:22.930699] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=continuing
+[2026-01-03T15:36:23.299807] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=continuing
+[2026-01-03T15:36:23.643867] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=continuing
+[2026-01-03T15:36:23.977613] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=continuing
+[2026-01-03T15:36:24.394084] transactions_from_db | user_id=1 | 172 transactions
+[2026-01-03T15:36:24.430358] transactions_from_cache | user_id=1 | Cache hit
+[2026-01-03T15:36:39.253330] link_token_create | user_id=1
+[2026-01-03T15:36:39.392028] transactions_sync | user_id=1 | account_id=D04Z4XJyvLCDyrPe9799fpJqeQyRdKCXJq03r | cursor=initial
+[2026-01-03T15:36:39.752285] transactions_sync | user_id=1 | account_id=VaovOY3JwqF5Mgx8nJPPTRQkvOeBzMF43PmMd | cursor=continuing
+[2026-01-03T15:36:40.086470] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=continuing
+[2026-01-03T15:36:40.410346] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=continuing
+[2026-01-03T15:36:40.748595] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=continuing
+[2026-01-03T15:36:41.062874] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=continuing
+[2026-01-03T15:36:41.458701] transactions_from_db | user_id=1 | 172 transactions
+[2026-01-03T15:36:41.469325] transactions_from_cache | user_id=1 | Cache hit
+[2026-01-04T13:23:28.030361] transactions_from_db | user_id=1 | 172 transactions
+[2026-01-04T13:23:33.696923] transactions_sync | user_id=1 | account_id=D04Z4XJyvLCDyrPe9799fpJqeQyRdKCXJq03r | cursor=initial
+[2026-01-04T13:23:34.167621] transactions_sync | user_id=1 | account_id=VaovOY3JwqF5Mgx8nJPPTRQkvOeBzMF43PmMd | cursor=initial
+[2026-01-04T13:23:35.250705] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=initial
+[2026-01-04T13:23:38.158804] transactions_sync | user_id=1 | account_id=XgyDA37QjLu3w4y8E0B7hV8nwLxonaFP13AzY | cursor=continuing
+[2026-01-04T13:23:39.708808] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=initial
+[2026-01-04T13:23:42.574885] transactions_sync | user_id=1 | account_id=NmdgLe48vbfYDLdQ7janT4ka7VYZarIbM1ey1 | cursor=continuing
+[2026-01-04T13:23:44.085936] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=initial
+[2026-01-04T13:23:46.971052] transactions_sync | user_id=1 | account_id=YgKPvy4ZjDuybdKvE46NSZ7bYDnRbAIp8Kkzr | cursor=continuing
+[2026-01-04T13:23:48.504460] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=initial
+[2026-01-04T13:23:51.379727] transactions_sync | user_id=1 | account_id=zP19q6yrXDcpzk0BA1mafkRe6XzLeOuBX60MA | cursor=continuing
+[2026-01-04T13:23:53.056616] transactions_from_db | user_id=1 | 173 transactions
