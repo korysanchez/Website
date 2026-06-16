@@ -229,7 +229,7 @@ function SlotModal({ slot, onClose, onViewContainer }) {
     );
 }
 
-function BoxesTab({ setActiveTab, setSearchContainerId }) {
+function BoxesTab({ setActiveTab, setSearchContainerId, initialBox = '' }) {
     const [boxes, setBoxes] = useState([]);
     const [selectedBox, setSelectedBox] = useState('');
     const [loadedBox, setLoadedBox] = useState('');
@@ -277,7 +277,10 @@ function BoxesTab({ setActiveTab, setSearchContainerId }) {
                 setBoxes(nextBoxes);
                 setLoadingBoxes(false);
 
-                if (nextBoxes.length > 0) {
+                const targetBox = String(initialBox || '').trim();
+                if (targetBox && nextBoxes.includes(targetBox)) {
+                    loadBoxContents(targetBox);
+                } else if (nextBoxes.length > 0) {
                     loadBoxContents(nextBoxes[0]);
                 }
             })
@@ -292,7 +295,7 @@ function BoxesTab({ setActiveTab, setSearchContainerId }) {
         return () => {
             cancelled = true;
         };
-    }, [loadBoxContents]);
+    }, [initialBox, loadBoxContents]);
 
     const slots = useMemo(() => normalizeBoxContents(boxContents), [boxContents]);
     const displayedSlots = useMemo(() => {
@@ -388,43 +391,151 @@ function BoxesTab({ setActiveTab, setSearchContainerId }) {
     );
 }
 
-function PieceRow({ piece }) {
+function ContainerPieceTile({ piece, onOpen }) {
+    const pieceName = piece.name || piece.part_number || 'Unknown piece';
+
     return (
-        <article className="piece-row">
-            <PieceImage piece={piece} className="piece-row-image" />
-            <div className="piece-row-main">
-                <strong>{piece.name || 'Unknown piece'}</strong>
-                <span>Part {piece.part_number}</span>
-                <span>{piece.category || 'Unknown category'}</span>
-            </div>
-        </article>
+        <button
+            type="button"
+            className="container-piece-tile"
+            onClick={() => onOpen(piece)}
+        >
+            <PieceImage piece={piece} className="container-piece-image" />
+            <span title={pieceName}>{pieceName}</span>
+        </button>
     );
 }
 
-function BoxPositionMap({ activePosition }) {
-    const normalizedActivePosition = String(activePosition || '').toUpperCase();
+function PieceDetailModal({ piece, containerId, location, onClose, onOpenPiece }) {
+    useEffect(() => {
+        if (!piece) {
+            return undefined;
+        }
+
+        const handleKeyDown = (event) => {
+            if (event.key === 'Escape') {
+                onClose();
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [piece, onClose]);
+
+    if (!piece) {
+        return null;
+    }
+
+    const pieceName = piece.name || piece.part_number || 'Unknown piece';
 
     return (
-        <div className="box-position-map" aria-label={`Container position ${normalizedActivePosition || 'unassigned'}`}>
-            {BOX_DISPLAY_POSITIONS.map(position => (
-                <span
-                    key={position}
-                    className={position === normalizedActivePosition ? 'active' : ''}
-                >
-                    {position}
-                </span>
-            ))}
+        <div className="slot-modal-backdrop" onMouseDown={onClose}>
+            <div
+                className="slot-modal piece-detail-modal"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="piece-detail-title"
+                onMouseDown={(event) => event.stopPropagation()}
+            >
+                <div className="slot-modal-header">
+                    <div>
+                        <h3 id="piece-detail-title">{pieceName}</h3>
+                        <span>Part {piece.part_number || 'Unknown'}</span>
+                    </div>
+                    <button type="button" className="modal-icon-button" onClick={onClose} aria-label="Close">
+                        x
+                    </button>
+                </div>
+
+                <div className="piece-detail-body">
+                    <PieceImage piece={piece} className="piece-detail-image" />
+                    <div className="piece-detail-meta">
+                        <span>
+                            <strong>Part</strong>
+                            {piece.part_number || 'Unknown'}
+                        </span>
+                        <span>
+                            <strong>Category</strong>
+                            {piece.category || 'Unknown category'}
+                        </span>
+                        <span>
+                            <strong>Container</strong>
+                            {containerId || 'Unknown'}
+                        </span>
+                        <span>
+                            <strong>Location</strong>
+                            {location || 'Unassigned'}
+                        </span>
+                    </div>
+                </div>
+
+                <div className="slot-modal-actions">
+                    <button type="button" onClick={onClose}>Close</button>
+                    <button type="button" className="primary-action" onClick={() => onOpenPiece(piece)}>
+                        Open in Pieces
+                    </button>
+                </div>
+            </div>
         </div>
     );
 }
 
-function ContainersTab({ initialSearchId = '' }) {
+function buildBoxContainerMap(items) {
+    const slotMap = new Map();
+
+    items.forEach(item => {
+        const position = String(item.position || '').toUpperCase();
+        if (position && item.container_id && !slotMap.has(position)) {
+            slotMap.set(position, item.container_id);
+        }
+    });
+
+    return slotMap;
+}
+
+function BoxPositionMap({ activePosition, boxContents, onSelectContainer }) {
+    const normalizedActivePosition = String(activePosition || '').toUpperCase();
+    const containerMap = useMemo(() => buildBoxContainerMap(boxContents), [boxContents]);
+
+    return (
+        <div className="box-position-map" aria-label={`Container position ${normalizedActivePosition || 'unassigned'}`}>
+            {BOX_DISPLAY_POSITIONS.map(position => {
+                const containerId = containerMap.get(position);
+                const isActive = position === normalizedActivePosition;
+                const content = (
+                    <>
+                        <strong>{position}</strong>
+                        {containerId && <small>{containerId}</small>}
+                    </>
+                );
+
+                return containerId ? (
+                    <button
+                        type="button"
+                        key={position}
+                        className={isActive ? 'active' : ''}
+                        onClick={() => onSelectContainer(containerId)}
+                    >
+                        {content}
+                    </button>
+                ) : (
+                    <span key={position} className={isActive ? 'active' : ''}>
+                        {content}
+                    </span>
+                );
+            })}
+        </div>
+    );
+}
+
+function ContainersTab({ initialSearchId = '', onOpenBox = () => {}, onOpenPiece = () => {} }) {
     const [containerId, setContainerId] = useState(initialSearchId);
     const [containerDetails, setContainerDetails] = useState(null);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-    const [hasSearched, setHasSearched] = useState(Boolean(initialSearchId));
     const [lastAutoSearch, setLastAutoSearch] = useState('');
+    const [boxContents, setBoxContents] = useState([]);
+    const [selectedPiece, setSelectedPiece] = useState(null);
 
     const searchContainer = useCallback((id) => {
         const normalizedId = normalizeContainerInput(id);
@@ -435,9 +546,9 @@ function ContainersTab({ initialSearchId = '' }) {
 
         setContainerId(normalizedId);
         setLastAutoSearch(normalizedId);
-        setHasSearched(true);
         setLoading(true);
         setContainerDetails(null);
+        setSelectedPiece(null);
         setError('');
 
         getJson(`/lego/api/container/${encodeURIComponent(normalizedId)}`)
@@ -445,6 +556,19 @@ function ContainersTab({ initialSearchId = '' }) {
             .catch(() => setError('Container not found.'))
             .finally(() => setLoading(false));
     }, []);
+
+    useEffect(() => {
+        const boxId = containerDetails?.location?.box;
+
+        if (!boxId) {
+            setBoxContents([]);
+            return;
+        }
+
+        getJson(`/lego/api/box/${encodeURIComponent(boxId)}`)
+            .then(data => setBoxContents(Array.isArray(data) ? data : []))
+            .catch(() => setBoxContents([]));
+    }, [containerDetails]);
 
     useEffect(() => {
         const normalizedId = normalizeContainerInput(containerId);
@@ -472,8 +596,10 @@ function ContainersTab({ initialSearchId = '' }) {
     }, [initialSearchId, searchContainer]);
 
     const pieces = containerDetails?.pieces || [];
+    const boxId = containerDetails?.location?.box;
+    const positionId = String(containerDetails?.location?.position || '').toUpperCase();
     const location = containerDetails?.location?.box
-        ? `Box ${containerDetails.location.box}, slot ${String(containerDetails.location.position || '').toUpperCase()}`
+        ? `Slot ${positionId}`
         : 'Unassigned';
 
     return (
@@ -500,7 +626,7 @@ function ContainersTab({ initialSearchId = '' }) {
                                 setError('');
                                 if (digitCount < 3) {
                                     setContainerDetails(null);
-                                    setHasSearched(false);
+                                    setSelectedPiece(null);
                                     setLastAutoSearch('');
                                 }
                             }}
@@ -518,28 +644,50 @@ function ContainersTab({ initialSearchId = '' }) {
 
                     {containerDetails && (
                         <article className="container-card">
-                            <div className="container-card-header">
-                                <div>
+                            <div className="container-overview">
+                                <div className="container-card-header">
                                     <h3>{containerDetails.id}</h3>
                                     <span>{location}</span>
+                                    {boxId && (
+                                        <button
+                                            type="button"
+                                            className="box-chip"
+                                            onClick={() => onOpenBox(boxId)}
+                                        >
+                                            Box {boxId}
+                                        </button>
+                                    )}
+                                    <strong>{formatPieceCount(pieces.length)}</strong>
                                 </div>
-                                <strong>{formatPieceCount(pieces.length)}</strong>
-                            </div>
 
-                            <BoxPositionMap activePosition={containerDetails.location?.position} />
+                                <BoxPositionMap
+                                    activePosition={containerDetails.location?.position}
+                                    boxContents={boxContents}
+                                    onSelectContainer={searchContainer}
+                                />
+                            </div>
 
                             {pieces.length > 0 ? (
                                 <div className="container-piece-grid">
                                     {pieces.map((piece, index) => (
-                                        <PieceRow
+                                        <ContainerPieceTile
                                             key={`${containerDetails.id}-${piece.part_number}-${index}`}
                                             piece={piece}
+                                            onOpen={setSelectedPiece}
                                         />
                                     ))}
                                 </div>
                             ) : (
                                 <p className="quiet-text">No pieces assigned.</p>
                             )}
+
+                            <PieceDetailModal
+                                piece={selectedPiece}
+                                containerId={containerDetails.id}
+                                location={location}
+                                onClose={() => setSelectedPiece(null)}
+                                onOpenPiece={onOpenPiece}
+                            />
                         </article>
                     )}
                 </div>
@@ -582,7 +730,7 @@ function ResultCard({ piece, onOpenContainer }) {
     );
 }
 
-function PiecesTab({ setActiveTab, setSearchContainerId }) {
+function PiecesTab({ setActiveTab, setSearchContainerId, initialSearch }) {
     const [searchType, setSearchType] = useState('name');
     const [searchTerm, setSearchTerm] = useState('');
     const [categories, setCategories] = useState([]);
@@ -607,10 +755,12 @@ function PiecesTab({ setActiveTab, setSearchContainerId }) {
             .catch(() => setError('Categories could not be loaded.'));
     }, [searchType, categories.length]);
 
-    const searchPieces = () => {
-        const termToSearch = searchType === 'category' ? selectedCategory : searchTerm.trim();
+    const performPieceSearch = useCallback((type, term) => {
+        const nextType = type || 'name';
+        const termToSearch = String(term || '').trim();
+
         if (!termToSearch) {
-            setError(searchType === 'category' ? 'Select a category.' : 'Enter a search term.');
+            setError(nextType === 'category' ? 'Select a category.' : 'Enter a search term.');
             return;
         }
 
@@ -619,11 +769,35 @@ function PiecesTab({ setActiveTab, setSearchContainerId }) {
         setResults([]);
         setError('');
 
-        getJson(`/lego/api/piece/search?type=${searchType}&term=${encodeURIComponent(termToSearch)}`)
+        getJson(`/lego/api/piece/search?type=${encodeURIComponent(nextType)}&term=${encodeURIComponent(termToSearch)}`)
             .then(data => setResults(Array.isArray(data) ? data : []))
             .catch(() => setError('Piece search failed.'))
             .finally(() => setLoading(false));
+    }, []);
+
+    const searchPieces = () => {
+        const termToSearch = searchType === 'category' ? selectedCategory : searchTerm.trim();
+        performPieceSearch(searchType, termToSearch);
     };
+
+    useEffect(() => {
+        const nextType = initialSearch?.type;
+        const nextTerm = String(initialSearch?.term || '').trim();
+
+        if (!nextType || !nextTerm) {
+            return;
+        }
+
+        setSearchType(nextType);
+        if (nextType === 'category') {
+            setSelectedCategory(nextTerm);
+        } else {
+            setSearchTerm(nextTerm);
+            setSelectedCategory('');
+        }
+        setError('');
+        performPieceSearch(nextType, nextTerm);
+    }, [initialSearch, performPieceSearch]);
 
     const openContainer = (containerId) => {
         setSearchContainerId(containerId);
@@ -710,6 +884,8 @@ function PiecesTab({ setActiveTab, setSearchContainerId }) {
 function Lego() {
     const [activeTab, setActiveTab] = useState('boxes');
     const [searchContainerId, setSearchContainerId] = useState('');
+    const [boxToOpen, setBoxToOpen] = useState('');
+    const [pieceSearch, setPieceSearch] = useState(null);
 
     const tabs = [
         { id: 'boxes', label: 'Boxes' },
@@ -724,15 +900,34 @@ function Lego() {
                     <BoxesTab
                         setActiveTab={setActiveTab}
                         setSearchContainerId={setSearchContainerId}
+                        initialBox={boxToOpen}
                     />
                 );
             case 'containers':
-                return <ContainersTab initialSearchId={searchContainerId} />;
+                return (
+                    <ContainersTab
+                        initialSearchId={searchContainerId}
+                        onOpenBox={(boxId) => {
+                            setBoxToOpen(String(boxId || ''));
+                            setActiveTab('boxes');
+                        }}
+                        onOpenPiece={(piece) => {
+                            const partNumber = String(piece?.part_number || '').trim();
+                            if (!partNumber) {
+                                return;
+                            }
+
+                            setPieceSearch({ type: 'part_number', term: partNumber });
+                            setActiveTab('pieces');
+                        }}
+                    />
+                );
             case 'pieces':
                 return (
                     <PiecesTab
                         setActiveTab={setActiveTab}
                         setSearchContainerId={setSearchContainerId}
+                        initialSearch={pieceSearch}
                     />
                 );
             default:
