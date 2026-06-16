@@ -19,7 +19,7 @@
     min-height: 100dvh;
     max-width: 1220px;
     margin: 0 auto;
-    padding: 8px;
+    padding: 4px;
     color: var(--lego-text);
 }
 
@@ -71,26 +71,29 @@ body.light-mode .lego-page {
 
 .lego-header {
     display: flex;
-    align-items: end;
+    align-items: center;
     justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 6px;
+    gap: 6px;
+    margin-bottom: 3px;
 }
 
-.app-kicker {
-    display: block;
-    margin-bottom: 2px;
-    color: var(--lego-muted);
-    font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: 0;
-    text-transform: uppercase;
-}
-
-.lego-header h1 {
+.lego-header span {
     margin: 0;
-    font-size: 1.35rem;
+    font-size: 1.05rem;
+    font-weight: 900;
     line-height: 1.05;
+}
+
+.mobile-section-select {
+    display: none;
+    min-height: 30px;
+    max-width: 132px;
+    padding: 0 6px;
+    border: 1px solid var(--lego-border-strong);
+    border-radius: 4px;
+    background: var(--lego-elevated);
+    color: var(--lego-text);
+    font-weight: 800;
 }
 
 .lego-nav {
@@ -100,7 +103,7 @@ body.light-mode .lego-page {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 4px;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     padding: 3px;
     border: 1px solid var(--lego-border);
     border-radius: 6px;
@@ -134,31 +137,11 @@ body.dark-mode .search-type-tabs button.active {
 
 .lego-section {
     display: grid;
-    gap: 6px;
-}
-
-.section-title-row {
-    display: flex;
-    align-items: end;
-    justify-content: space-between;
-    gap: 10px;
-}
-
-.section-title-row h2 {
-    margin: 0;
-    font-size: 1rem;
-    line-height: 1.1;
-}
-
-.section-title-row p {
-    margin: 2px 0 0;
-    color: var(--lego-muted);
-    font-size: 0.76rem;
+    gap: 3px;
 }
 
 .toolbar,
 .search-form,
-.stats-row,
 .slots-grid,
 .piece-list,
 .results-grid,
@@ -170,7 +153,6 @@ body.dark-mode .search-type-tabs button.active {
 
 .toolbar,
 .search-form,
-.lego-stat,
 .slot-card,
 .piece-row,
 .result-card,
@@ -183,19 +165,19 @@ body.dark-mode .search-type-tabs button.active {
 
 .toolbar {
     display: grid;
-    grid-template-columns: 44px minmax(0, 1fr) 44px;
-    gap: 4px;
-    padding: 4px;
-    border-radius: 6px;
+    grid-template-columns: 40px minmax(0, 1fr) 40px;
+    gap: 2px;
+    padding: 2px;
+    border-radius: 4px;
 }
 
 .toolbar select,
 .input-row input,
 .input-row select {
     width: 100%;
-    min-height: 38px;
+    min-height: 30px;
     min-width: 0;
-    padding: 0 8px;
+    padding: 0 5px;
     border: 1px solid var(--lego-border-strong);
     border-radius: 5px;
     background: var(--lego-elevated);
@@ -204,7 +186,7 @@ body.dark-mode .search-type-tabs button.active {
 
 .square-button,
 .input-row button {
-    min-height: 38px;
+    min-height: 30px;
     border: 1px solid var(--lego-text);
     border-radius: 5px;
     background: var(--lego-text);
@@ -214,7 +196,7 @@ body.dark-mode .search-type-tabs button.active {
 }
 
 .toolbar .square-button {
-    font-size: 1.45rem;
+    font-size: 1.7rem;
     line-height: 1;
 }
 
@@ -234,26 +216,15 @@ body.dark-mode .input-row button {
 
 .search-form {
     display: grid;
-    gap: 5px;
-    padding: 6px;
-    border-radius: 6px;
-}
-
-.search-form label {
-    color: var(--lego-muted);
-    font-size: 0.72rem;
-    font-weight: 800;
-}
-
-.form-hint {
-    color: var(--lego-muted);
-    font-size: 0.72rem;
+    gap: 3px;
+    padding: 3px;
+    border-radius: 4px;
 }
 
 .input-row {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
-    gap: 4px;
+    gap: 2px;
 }
 
 .input-row button {
@@ -269,45 +240,21 @@ body.dark-mode .input-row button {
     background: var(--lego-surface-soft);
 }
 
-.stats-row {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 4px;
-}
-
-.lego-stat {
-    padding: 6px 8px;
-    border-radius: 6px;
-}
-
-.lego-stat span {
-    display: block;
-    color: var(--lego-muted);
-    font-size: 0.68rem;
-    font-weight: 800;
-}
-
-.lego-stat strong {
-    display: block;
-    margin-top: 2px;
-    overflow-wrap: anywhere;
-    font-size: 0.9rem;
-    line-height: 1.05;
-}
-
 .slots-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 4px;
+    gap: 2px;
+    height: calc(100dvh - 88px);
+    min-height: 0;
 }
 
 .slot-card {
     display: grid;
-    gap: 3px;
+    gap: 1px;
     width: 100%;
-    min-height: 56px;
-    padding: 5px;
-    border-radius: 5px;
+    min-height: 0;
+    padding: 3px;
+    border-radius: 4px;
     color: var(--lego-text);
     text-align: left;
     cursor: pointer;
@@ -325,7 +272,7 @@ body.dark-mode .input-row button {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 4px;
+    gap: 3px;
 }
 
 .slot-header strong {
@@ -350,8 +297,8 @@ body.dark-mode .input-row button {
 .slot-preview {
     display: flex;
     align-items: center;
-    gap: 3px;
-    min-height: 26px;
+    gap: 2px;
+    min-height: 0;
     overflow: hidden;
 }
 
@@ -360,8 +307,8 @@ body.dark-mode .input-row button {
     align-items: center;
     justify-content: center;
     flex: 0 0 auto;
-    width: 26px;
-    height: 26px;
+    width: 30px;
+    height: 30px;
     overflow: hidden;
     border: 1px solid var(--lego-border);
     border-radius: 4px;
@@ -401,7 +348,7 @@ body.dark-mode .piece-image-wrap {
 .container-workspace {
     display: grid;
     grid-template-columns: minmax(220px, 300px) minmax(0, 1fr);
-    gap: 6px;
+    gap: 3px;
     align-items: start;
 }
 
@@ -412,22 +359,22 @@ body.dark-mode .piece-image-wrap {
 
 .container-results {
     display: grid;
-    gap: 6px;
+    gap: 3px;
 }
 
 .container-card {
     display: grid;
-    gap: 6px;
-    padding: 8px;
-    border-radius: 6px;
+    gap: 3px;
+    padding: 3px;
+    border-radius: 4px;
 }
 
 .container-card-header {
     display: flex;
     align-items: start;
     justify-content: space-between;
-    gap: 8px;
-    padding-bottom: 6px;
+    gap: 4px;
+    padding-bottom: 3px;
     border-bottom: 1px solid var(--lego-border);
 }
 
@@ -451,9 +398,9 @@ body.dark-mode .piece-image-wrap {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-rows: repeat(8, 1fr);
-    gap: 3px;
-    width: min(160px, 100%);
-    padding: 5px;
+    gap: 2px;
+    width: min(128px, 100%);
+    padding: 3px;
     border: 1px solid var(--lego-border);
     border-radius: 6px;
     background: var(--lego-surface-soft);
@@ -462,7 +409,7 @@ body.dark-mode .piece-image-wrap {
 .box-position-map span {
     display: grid;
     place-items: center;
-    min-height: 18px;
+    min-height: 15px;
     border: 1px solid var(--lego-border);
     border-radius: 4px;
     color: var(--lego-muted);
@@ -485,7 +432,7 @@ body.dark-mode .box-position-map span.active {
 .results-grid,
 .container-piece-grid {
     display: grid;
-    gap: 4px;
+    gap: 2px;
 }
 
 .piece-row,
@@ -495,18 +442,24 @@ body.dark-mode .box-position-map span.active {
 
 .piece-row {
     display: grid;
-    grid-template-columns: 36px minmax(0, 1fr);
-    gap: 6px;
+    grid-template-columns: 52px minmax(0, 1fr);
+    gap: 4px;
     align-items: center;
-    padding: 5px;
+    padding: 3px;
 }
 
 .container-card .piece-row {
+    grid-template-columns: 62px minmax(0, 1fr);
     border: 0;
     border-radius: 0;
     border-bottom: 1px solid var(--lego-border);
     background: transparent;
-    padding: 5px 0;
+    padding: 2px 0;
+}
+
+.container-card .piece-image-wrap {
+    width: 62px;
+    height: 62px;
 }
 
 .container-card .piece-row:last-child {
@@ -629,8 +582,8 @@ body.dark-mode .slot-modal-actions .primary-action {
 }
 
 .piece-row-image {
-    width: 36px;
-    height: 36px;
+    width: 52px;
+    height: 52px;
 }
 
 .piece-row-main {
@@ -776,16 +729,28 @@ body.dark-mode .slot-modal-actions .primary-action {
 
 @media (max-width: 720px) {
     .lego-page {
-        padding: 6px;
+        padding: 3px;
     }
 
-    .lego-header h1 {
-        font-size: 1.2rem;
+    .lego-header span {
+        font-size: 0.98rem;
+    }
+
+    .mobile-section-select {
+        display: block;
     }
 
     .lego-nav {
-        margin-right: -2px;
-        margin-left: -2px;
+        display: none;
+    }
+
+    .toolbar {
+        grid-template-columns: 38px minmax(0, 1fr) 38px;
+    }
+
+    .toolbar select,
+    .square-button {
+        min-height: 28px;
     }
 
     .container-workspace {
@@ -800,18 +765,14 @@ body.dark-mode .slot-modal-actions .primary-action {
         grid-template-columns: minmax(0, 1fr) auto;
     }
 
-    .stats-row {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
     .slots-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 3px;
+        gap: 2px;
+        height: calc(100dvh - 51px);
     }
 
     .slot-card {
-        min-height: 62px;
-        padding: 4px;
+        padding: 2px 3px;
     }
 
     .slot-header strong {
@@ -824,8 +785,8 @@ body.dark-mode .slot-modal-actions .primary-action {
     }
 
     .piece-image-wrap {
-        width: 22px;
-        height: 22px;
+        width: 28px;
+        height: 28px;
     }
 
     .results-grid {
@@ -839,12 +800,14 @@ body.dark-mode .slot-modal-actions .primary-action {
         font-size: 0.82rem;
     }
 
-    .stats-row {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
     .input-row {
         grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .input-row input,
+    .input-row select,
+    .input-row button {
+        min-height: 28px;
     }
 
     .slots-grid {

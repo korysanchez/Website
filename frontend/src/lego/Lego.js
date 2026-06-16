@@ -128,7 +128,7 @@ function PieceImage({ piece, className = '' }) {
 
 function SlotCard({ slot, onOpenSlot }) {
     const hasContainer = Boolean(slot.containerId);
-    const previewPieces = slot.pieces.slice(0, 3);
+    const previewPieces = slot.pieces.slice(0, 2);
     const extraCount = slot.pieces.length - previewPieces.length;
 
     return (
@@ -141,10 +141,6 @@ function SlotCard({ slot, onOpenSlot }) {
             <span className="slot-header">
                 <strong>{slot.position}</strong>
                 <span>{slot.containerId || 'Empty'}</span>
-            </span>
-
-            <span className="slot-meta">
-                {hasContainer ? formatPieceCount(slot.pieces.length) : 'No container'}
             </span>
 
             <span className="slot-preview">
@@ -160,7 +156,7 @@ function SlotCard({ slot, onOpenSlot }) {
                     </>
                 ) : (
                     <span className="quiet-text">
-                        {hasContainer ? 'No pieces listed' : 'Open slot'}
+                        {hasContainer ? 'Empty' : 'Open'}
                     </span>
                 )}
             </span>
@@ -491,7 +487,6 @@ function ContainersTab({ initialSearchId = '' }) {
                         searchContainer(containerId);
                     }}
                 >
-                    <label htmlFor="container-search">Container ID</label>
                     <div className="input-row">
                         <input
                             id="container-search"
@@ -515,9 +510,6 @@ function ContainersTab({ initialSearchId = '' }) {
                         />
                         <button type="submit" disabled={loading}>Search</button>
                     </div>
-                    <span className="form-hint">
-                        Auto-loads after 3 digits.
-                    </span>
                 </form>
 
                 <div className="container-results">
@@ -696,10 +688,6 @@ function PiecesTab({ setActiveTab, setSearchContainerId }) {
             <ErrorMessage message={error} />
             {loading && <LoadingBlock label="Searching pieces" />}
 
-            {!loading && !hasSearched && (
-                <EmptyBlock title="No search yet" detail="Matching pieces will appear here." />
-            )}
-
             {!loading && hasSearched && results.length === 0 && !error && (
                 <EmptyBlock title="No pieces found" detail="Try a broader search term." />
             )}
@@ -758,6 +746,16 @@ function Lego() {
                 <div>
                     <span>Collection Viewer</span>
                 </div>
+                <select
+                    className="mobile-section-select"
+                    value={activeTab}
+                    onChange={(event) => setActiveTab(event.target.value)}
+                    aria-label="Select LEGO section"
+                >
+                    {tabs.map(tab => (
+                        <option key={tab.id} value={tab.id}>{tab.label}</option>
+                    ))}
+                </select>
             </header>
 
             <nav className="lego-nav" aria-label="LEGO sections">
