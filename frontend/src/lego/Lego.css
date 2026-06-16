@@ -17,9 +17,9 @@
     --lego-focus: rgba(31, 111, 235, 0.25);
     --lego-nav-bg: rgba(255, 255, 255, 0.94);
     min-height: 100dvh;
-    max-width: 1180px;
+    max-width: 1220px;
     margin: 0 auto;
-    padding: 12px;
+    padding: 8px;
     color: var(--lego-text);
 }
 
@@ -74,7 +74,7 @@ body.light-mode .lego-page {
     align-items: end;
     justify-content: space-between;
     gap: 12px;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 .app-kicker {
@@ -89,7 +89,7 @@ body.light-mode .lego-page {
 
 .lego-header h1 {
     margin: 0;
-    font-size: 1.55rem;
+    font-size: 1.35rem;
     line-height: 1.05;
 }
 
@@ -100,8 +100,8 @@ body.light-mode .lego-page {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 4px;
-    margin-bottom: 10px;
-    padding: 4px;
+    margin-bottom: 8px;
+    padding: 3px;
     border: 1px solid var(--lego-border);
     border-radius: 6px;
     background: var(--lego-nav-bg);
@@ -110,7 +110,7 @@ body.light-mode .lego-page {
 
 .lego-nav button,
 .search-type-tabs button {
-    min-height: 34px;
+    min-height: 30px;
     border: 0;
     border-radius: 4px;
     background: transparent;
@@ -134,7 +134,7 @@ body.dark-mode .search-type-tabs button.active {
 
 .lego-section {
     display: grid;
-    gap: 8px;
+    gap: 6px;
 }
 
 .section-title-row {
@@ -146,14 +146,14 @@ body.dark-mode .search-type-tabs button.active {
 
 .section-title-row h2 {
     margin: 0;
-    font-size: 1.1rem;
+    font-size: 1rem;
     line-height: 1.1;
 }
 
 .section-title-row p {
     margin: 2px 0 0;
     color: var(--lego-muted);
-    font-size: 0.82rem;
+    font-size: 0.76rem;
 }
 
 .toolbar,
@@ -183,9 +183,9 @@ body.dark-mode .search-type-tabs button.active {
 
 .toolbar {
     display: grid;
-    grid-template-columns: 36px minmax(0, 1fr) 36px;
-    gap: 6px;
-    padding: 6px;
+    grid-template-columns: 32px minmax(0, 1fr) 32px;
+    gap: 4px;
+    padding: 4px;
     border-radius: 6px;
 }
 
@@ -193,9 +193,9 @@ body.dark-mode .search-type-tabs button.active {
 .input-row input,
 .input-row select {
     width: 100%;
-    min-height: 36px;
+    min-height: 32px;
     min-width: 0;
-    padding: 0 9px;
+    padding: 0 8px;
     border: 1px solid var(--lego-border-strong);
     border-radius: 5px;
     background: var(--lego-elevated);
@@ -204,7 +204,7 @@ body.dark-mode .search-type-tabs button.active {
 
 .square-button,
 .input-row button {
-    min-height: 36px;
+    min-height: 32px;
     border: 1px solid var(--lego-text);
     border-radius: 5px;
     background: var(--lego-text);
@@ -229,37 +229,37 @@ body.dark-mode .input-row button {
 
 .search-form {
     display: grid;
-    gap: 7px;
-    padding: 8px;
+    gap: 5px;
+    padding: 6px;
     border-radius: 6px;
 }
 
 .search-form label {
     color: var(--lego-muted);
-    font-size: 0.76rem;
+    font-size: 0.72rem;
     font-weight: 800;
 }
 
 .form-hint {
     color: var(--lego-muted);
-    font-size: 0.76rem;
+    font-size: 0.72rem;
 }
 
 .input-row {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
-    gap: 6px;
+    gap: 4px;
 }
 
 .input-row button {
-    padding: 0 12px;
+    padding: 0 10px;
 }
 
 .search-type-tabs {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 4px;
-    padding: 4px;
+    gap: 3px;
+    padding: 3px;
     border-radius: 6px;
     background: var(--lego-surface-soft);
 }
@@ -267,18 +267,18 @@ body.dark-mode .input-row button {
 .stats-row {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 6px;
+    gap: 4px;
 }
 
 .lego-stat {
-    padding: 8px 10px;
+    padding: 6px 8px;
     border-radius: 6px;
 }
 
 .lego-stat span {
     display: block;
     color: var(--lego-muted);
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     font-weight: 800;
 }
 
@@ -286,30 +286,30 @@ body.dark-mode .input-row button {
     display: block;
     margin-top: 2px;
     overflow-wrap: anywhere;
-    font-size: 1rem;
+    font-size: 0.9rem;
     line-height: 1.05;
 }
 
 .slots-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
-    gap: 6px;
+    grid-template-columns: repeat(auto-fit, minmax(108px, 1fr));
+    gap: 4px;
 }
 
 .slot-card {
     display: grid;
-    gap: 5px;
+    gap: 3px;
     width: 100%;
-    min-height: 92px;
-    padding: 8px;
-    border-radius: 6px;
+    min-height: 70px;
+    padding: 5px;
+    border-radius: 5px;
     color: var(--lego-text);
     text-align: left;
     cursor: pointer;
 }
 
 .slot-card.filled {
-    border-top: 3px solid var(--lego-accent);
+    border-top: 2px solid var(--lego-accent);
 }
 
 .slot-card.empty {
@@ -320,30 +320,30 @@ body.dark-mode .input-row button {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 6px;
+    gap: 4px;
 }
 
 .slot-header strong {
-    font-size: 0.86rem;
+    font-size: 0.76rem;
 }
 
 .slot-header span {
     color: var(--lego-muted);
-    font-size: 0.76rem;
+    font-size: 0.68rem;
     font-weight: 800;
 }
 
 .slot-meta {
     color: var(--lego-muted);
-    font-size: 0.76rem;
+    font-size: 0.68rem;
     font-weight: 700;
 }
 
 .slot-preview {
     display: flex;
     align-items: center;
-    gap: 4px;
-    min-height: 34px;
+    gap: 3px;
+    min-height: 26px;
     overflow: hidden;
 }
 
@@ -352,11 +352,11 @@ body.dark-mode .input-row button {
     align-items: center;
     justify-content: center;
     flex: 0 0 auto;
-    width: 34px;
-    height: 34px;
+    width: 26px;
+    height: 26px;
     overflow: hidden;
     border: 1px solid var(--lego-border);
-    border-radius: 5px;
+    border-radius: 4px;
     background: #ffffff;
 }
 
@@ -367,7 +367,7 @@ body.dark-mode .piece-image-wrap {
 .piece-image-wrap img {
     width: 100%;
     height: 100%;
-    padding: 3px;
+    padding: 2px;
     object-fit: contain;
 }
 
@@ -375,25 +375,25 @@ body.dark-mode .piece-image-wrap {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 28px;
-    height: 28px;
-    padding: 0 5px;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 4px;
     border-radius: 999px;
     background: #fff4bf;
     color: #594400;
-    font-size: 0.78rem;
+    font-size: 0.68rem;
     font-weight: 900;
 }
 
 .quiet-text {
     color: var(--lego-muted);
-    font-size: 0.8rem;
+    font-size: 0.7rem;
 }
 
 .container-workspace {
     display: grid;
-    grid-template-columns: minmax(240px, 330px) minmax(0, 1fr);
-    gap: 8px;
+    grid-template-columns: minmax(220px, 300px) minmax(0, 1fr);
+    gap: 6px;
     align-items: start;
 }
 
@@ -404,13 +404,13 @@ body.dark-mode .piece-image-wrap {
 
 .container-results {
     display: grid;
-    gap: 8px;
+    gap: 6px;
 }
 
 .container-card {
     display: grid;
-    gap: 8px;
-    padding: 10px;
+    gap: 6px;
+    padding: 8px;
     border-radius: 6px;
 }
 
@@ -418,24 +418,24 @@ body.dark-mode .piece-image-wrap {
     display: flex;
     align-items: start;
     justify-content: space-between;
-    gap: 10px;
-    padding-bottom: 8px;
+    gap: 8px;
+    padding-bottom: 6px;
     border-bottom: 1px solid var(--lego-border);
 }
 
 .container-card-header h3 {
     margin: 0 0 2px;
-    font-size: 1rem;
+    font-size: 0.95rem;
 }
 
 .container-card-header span {
     color: var(--lego-muted);
-    font-size: 0.82rem;
+    font-size: 0.76rem;
 }
 
 .container-card-header strong {
     color: var(--lego-text);
-    font-size: 0.86rem;
+    font-size: 0.8rem;
     white-space: nowrap;
 }
 
@@ -443,20 +443,20 @@ body.dark-mode .piece-image-wrap {
 .results-grid,
 .container-piece-grid {
     display: grid;
-    gap: 6px;
+    gap: 4px;
 }
 
 .piece-row,
 .result-card {
-    border-radius: 6px;
+    border-radius: 5px;
 }
 
 .piece-row {
     display: grid;
-    grid-template-columns: 44px minmax(0, 1fr);
-    gap: 8px;
+    grid-template-columns: 36px minmax(0, 1fr);
+    gap: 6px;
     align-items: center;
-    padding: 7px;
+    padding: 5px;
 }
 
 .container-card .piece-row {
@@ -471,9 +471,122 @@ body.dark-mode .piece-image-wrap {
     border-bottom: 0;
 }
 
-.piece-row-image {
+.slot-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    display: grid;
+    place-items: center;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.42);
+}
+
+.slot-modal {
+    display: grid;
+    gap: 8px;
+    width: min(560px, 100%);
+    max-height: calc(100dvh - 20px);
+    overflow: auto;
+    padding: 10px;
+    border: 1px solid var(--lego-border);
+    border-radius: 8px;
+    background: var(--lego-surface);
+    color: var(--lego-text);
+}
+
+.slot-modal-header {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--lego-border);
+}
+
+.slot-modal-header h3 {
+    margin: 0 0 2px;
+    font-size: 1rem;
+}
+
+.slot-modal-header span {
+    color: var(--lego-muted);
+    font-size: 0.78rem;
+}
+
+.modal-icon-button {
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--lego-border);
+    border-radius: 5px;
+    background: var(--lego-surface-soft);
+    color: var(--lego-text);
+    cursor: pointer;
+}
+
+.modal-piece-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(54px, 1fr));
+    gap: 5px;
+}
+
+.modal-piece-tile {
+    display: grid;
+    justify-items: center;
+    gap: 3px;
+    min-width: 0;
+    padding: 5px;
+    border: 1px solid var(--lego-border);
+    border-radius: 5px;
+    background: var(--lego-surface-soft);
+}
+
+.modal-piece-image {
     width: 44px;
     height: 44px;
+}
+
+.modal-piece-tile span {
+    max-width: 100%;
+    overflow: hidden;
+    color: var(--lego-muted);
+    font-size: 0.68rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.slot-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 6px;
+    padding-top: 2px;
+}
+
+.slot-modal-actions button {
+    min-height: 32px;
+    padding: 0 10px;
+    border: 1px solid var(--lego-border-strong);
+    border-radius: 5px;
+    background: var(--lego-surface-soft);
+    color: var(--lego-text);
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.slot-modal-actions .primary-action {
+    border-color: var(--lego-text);
+    background: var(--lego-text);
+    color: var(--lego-surface);
+}
+
+body.dark-mode .slot-modal-actions .primary-action {
+    border-color: #f1f3f5;
+    background: #f1f3f5;
+    color: #1d1f23;
+}
+
+.piece-row-image {
+    width: 36px;
+    height: 36px;
 }
 
 .piece-row-main {
@@ -484,30 +597,30 @@ body.dark-mode .piece-image-wrap {
 
 .piece-row-main strong {
     overflow-wrap: anywhere;
-    font-size: 0.88rem;
+    font-size: 0.8rem;
     line-height: 1.15;
 }
 
 .piece-row-main span,
 .result-meta span {
     color: var(--lego-muted);
-    font-size: 0.78rem;
+    font-size: 0.7rem;
 }
 
 .results-grid {
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
 .result-card {
     display: grid;
-    grid-template-columns: 64px minmax(0, 1fr);
-    gap: 9px;
-    padding: 8px;
+    grid-template-columns: 52px minmax(0, 1fr);
+    gap: 7px;
+    padding: 6px;
 }
 
 .result-image {
-    width: 64px;
-    height: 64px;
+    width: 52px;
+    height: 52px;
 }
 
 .result-main {
@@ -517,27 +630,27 @@ body.dark-mode .piece-image-wrap {
 .result-main h3 {
     margin: 0 0 5px;
     overflow-wrap: anywhere;
-    font-size: 0.92rem;
+    font-size: 0.84rem;
     line-height: 1.15;
 }
 
 .result-meta {
     display: grid;
     gap: 1px;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
 }
 
 .container-chips {
     display: flex;
     flex-wrap: wrap;
-    gap: 4px;
+    gap: 3px;
 }
 
 .container-chips button {
     display: grid;
     gap: 1px;
-    min-height: 32px;
-    padding: 4px 7px;
+    min-height: 28px;
+    padding: 3px 6px;
     border: 1px solid var(--lego-action-border);
     border-radius: 5px;
     background: var(--lego-action-soft);
@@ -548,26 +661,26 @@ body.dark-mode .piece-image-wrap {
 }
 
 .container-chips strong {
-    font-size: 0.78rem;
+    font-size: 0.72rem;
 }
 
 .container-chips span {
     color: var(--lego-muted);
-    font-size: 0.68rem;
+    font-size: 0.64rem;
 }
 
 .lego-alert,
 .loading-block,
 .empty-block {
     border-radius: 6px;
-    padding: 8px 10px;
+    padding: 6px 8px;
 }
 
 .lego-alert {
     border: 1px solid var(--lego-danger-border);
     background: var(--lego-danger-soft);
     color: var(--lego-danger);
-    font-size: 0.86rem;
+    font-size: 0.78rem;
     font-weight: 800;
 }
 
@@ -580,9 +693,9 @@ body.dark-mode .piece-image-wrap {
 .loading-block {
     display: flex;
     align-items: center;
-    gap: 7px;
+    gap: 6px;
     color: var(--lego-muted);
-    font-size: 0.86rem;
+    font-size: 0.78rem;
     font-weight: 800;
 }
 
@@ -597,7 +710,7 @@ body.dark-mode .piece-image-wrap {
     display: grid;
     gap: 2px;
     color: var(--lego-muted);
-    font-size: 0.86rem;
+    font-size: 0.78rem;
 }
 
 .empty-block strong {
@@ -613,7 +726,7 @@ body.dark-mode .piece-image-wrap {
 
 @media (min-width: 900px) {
     .slots-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-columns: repeat(8, minmax(0, 1fr));
     }
 
     .stats-row {
@@ -623,11 +736,11 @@ body.dark-mode .piece-image-wrap {
 
 @media (max-width: 720px) {
     .lego-page {
-        padding: 8px;
+        padding: 6px;
     }
 
     .lego-header h1 {
-        font-size: 1.35rem;
+        font-size: 1.2rem;
     }
 
     .lego-nav {
@@ -652,16 +765,36 @@ body.dark-mode .piece-image-wrap {
     }
 
     .slots-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 3px;
+    }
+
+    .slot-card {
+        min-height: 62px;
+        padding: 4px;
     }
 
     .slot-header {
         display: grid;
-        gap: 1px;
+        gap: 0;
+    }
+
+    .slot-header strong {
+        font-size: 0.72rem;
+    }
+
+    .slot-header span,
+    .slot-meta {
+        font-size: 0.62rem;
+    }
+
+    .piece-image-wrap {
+        width: 22px;
+        height: 22px;
     }
 
     .results-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
@@ -672,23 +805,36 @@ body.dark-mode .piece-image-wrap {
     }
 
     .stats-row {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
     .input-row {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr) auto;
     }
 
     .slots-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 
     .result-card {
-        grid-template-columns: 54px minmax(0, 1fr);
+        grid-template-columns: 44px minmax(0, 1fr);
     }
 
     .result-image {
-        width: 54px;
-        height: 54px;
+        width: 44px;
+        height: 44px;
+    }
+
+    .slot-modal {
+        padding: 8px;
+    }
+
+    .modal-piece-grid {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .modal-piece-image {
+        width: 36px;
+        height: 36px;
     }
 }

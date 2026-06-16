@@ -21,7 +21,7 @@ function normalizeContainerInput(value) {
         return '';
     }
 
-    return `c${digits.slice(0, 3)}`;
+    return digits.slice(0, 3);
 }
 
 function cleanImageSegment(value) {
@@ -134,20 +134,20 @@ function PieceImage({ piece, className = '' }) {
     );
 }
 
-function SlotCard({ slot, onOpenContainer }) {
+function SlotCard({ slot, onOpenSlot }) {
     const hasContainer = Boolean(slot.containerId);
-    const previewPieces = slot.pieces.slice(0, 4);
+    const previewPieces = slot.pieces.slice(0, 3);
     const extraCount = slot.pieces.length - previewPieces.length;
 
     return (
         <button
             type="button"
             className={`slot-card ${hasContainer ? 'filled' : 'empty'}`}
-            onClick={() => onOpenContainer(slot.containerId)}
+            onClick={() => onOpenSlot(slot)}
             disabled={!hasContainer}
         >
             <span className="slot-header">
-                <strong>Slot {slot.position}</strong>
+                <strong>{slot.position}</strong>
                 <span>{slot.containerId || 'Empty'}</span>
             </span>
 
@@ -176,6 +176,69 @@ function SlotCard({ slot, onOpenContainer }) {
     );
 }
 
+function SlotModal({ slot, onClose, onViewContainer }) {
+    useEffect(() => {
+        if (!slot) {
+            return undefined;
+        }
+
+        const handleKeyDown = (event) => {
+            if (event.key === 'Escape') {
+                onClose();
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [slot, onClose]);
+
+    if (!slot) {
+        return null;
+    }
+
+    return (
+        <div className="slot-modal-backdrop" onMouseDown={onClose}>
+            <div
+                className="slot-modal"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="slot-modal-title"
+                onMouseDown={(event) => event.stopPropagation()}
+            >
+                <div className="slot-modal-header">
+                    <div>
+                        <h3 id="slot-modal-title">{slot.containerId}</h3>
+                        <span>Slot {slot.position} - {formatPieceCount(slot.pieces.length)}</span>
+                    </div>
+                    <button type="button" className="modal-icon-button" onClick={onClose} aria-label="Close">
+                        x
+                    </button>
+                </div>
+
+                {slot.pieces.length > 0 ? (
+                    <div className="modal-piece-grid">
+                        {slot.pieces.map((piece, index) => (
+                            <div className="modal-piece-tile" key={`${piece.part_number}-${index}`}>
+                                <PieceImage piece={piece} className="modal-piece-image" />
+                                <span>{piece.part_number}</span>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <EmptyBlock title="No pieces listed" detail="This container is assigned here, but has no pieces in the box result." />
+                )}
+
+                <div className="slot-modal-actions">
+                    <button type="button" onClick={onClose}>Close</button>
+                    <button type="button" className="primary-action" onClick={() => onViewContainer(slot.containerId)}>
+                        View container
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 function BoxesTab({ setActiveTab, setSearchContainerId }) {
     const [boxes, setBoxes] = useState([]);
     const [selectedBox, setSelectedBox] = useState('');
@@ -184,6 +247,7 @@ function BoxesTab({ setActiveTab, setSearchContainerId }) {
     const [loadingBoxes, setLoadingBoxes] = useState(true);
     const [loadingContents, setLoadingContents] = useState(false);
     const [error, setError] = useState('');
+    const [selectedSlot, setSelectedSlot] = useState(null);
 
     const loadBoxContents = useCallback((boxId) => {
         const nextBox = String(boxId || '').trim();
@@ -245,11 +309,16 @@ function BoxesTab({ setActiveTab, setSearchContainerId }) {
     const filledSlots = slots.filter(slot => slot.containerId).length;
     const pieceTotal = slots.reduce((total, slot) => total + slot.pieces.length, 0);
 
-    const openContainer = (containerId) => {
-        if (!containerId) {
+    const openSlot = (slot) => {
+        if (!slot?.containerId) {
             return;
         }
 
+        setSelectedSlot(slot);
+    };
+
+    const viewContainer = (containerId) => {
+        setSelectedSlot(null);
         setSearchContainerId(containerId);
         setActiveTab('containers');
     };
@@ -321,10 +390,16 @@ function BoxesTab({ setActiveTab, setSearchContainerId }) {
                             <SlotCard
                                 key={slot.position}
                                 slot={slot}
-                                onOpenContainer={openContainer}
+                                onOpenSlot={openSlot}
                             />
                         ))}
                     </div>
+
+                    <SlotModal
+                        slot={selectedSlot}
+                        onClose={() => setSelectedSlot(null)}
+                        onViewContainer={viewContainer}
+                    />
                 </>
             ) : (
                 <EmptyBlock title="No box selected" detail="Available boxes will appear when the backend responds." />
@@ -356,18 +431,18 @@ function ContainersTab({ initialSearchId = '' }) {
 
     const searchContainer = useCallback((id) => {
         const normalizedId = normalizeContainerInput(id);
-        const searchId = normalizedId || String(id || '').trim();
-        if (!searchId) {
+        if (!normalizedId) {
             setError('Enter a container ID.');
             return;
         }
 
+        setContainerId(normalizedId);
         setHasSearched(true);
         setLoading(true);
         setContainerDetails(null);
         setError('');
 
-        getJson(`/lego/api/container/${encodeURIComponent(searchId)}`)
+        getJson(`/lego/api/container/${encodeURIComponent(normalizedId)}`)
             .then(data => setContainerDetails(data))
             .catch(() => setError('Container not found.'))
             .finally(() => setLoading(false));
@@ -391,9 +466,10 @@ function ContainersTab({ initialSearchId = '' }) {
 
     useEffect(() => {
         if (initialSearchId) {
-            setContainerId(initialSearchId);
-            setLastAutoSearch(initialSearchId);
-            searchContainer(initialSearchId);
+            const normalizedId = normalizeContainerInput(initialSearchId);
+            setContainerId(normalizedId);
+            setLastAutoSearch(normalizedId);
+            searchContainer(normalizedId);
         }
     }, [initialSearchId, searchContainer]);
 
@@ -424,7 +500,7 @@ function ContainersTab({ initialSearchId = '' }) {
                         <input
                             id="container-search"
                             type="text"
-                            placeholder="001 or c001"
+                            placeholder="001"
                             value={containerId}
                             onChange={(event) => {
                                 const nextValue = event.target.value;
